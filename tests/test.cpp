@@ -34,5 +34,6 @@ TEST_F(DatabaseTest, NonExistingKey) {
 // Test case for deleting a key
 TEST_F(DatabaseTest, DeleteKey) {
     db.set("key1", "value1");
-    EXPECT_EQ(db.get("key1"), "value1");
+    db.del("key1");
+    EXPECT_EQ(db.get("key1"), "");
 }

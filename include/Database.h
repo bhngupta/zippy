@@ -10,6 +10,8 @@ public:
     
     std::string get(const std::string& key);
 
+    void del(const std::string& key);
+    
 private:
     HashTable hashTable;
 };

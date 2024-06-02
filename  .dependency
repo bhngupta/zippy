@@ -1,0 +1,20 @@
+Requirements:
+
+1.cmake
+2.gprc
+3.protobuf
+
+To generate c++ code from .proto file - 
+
+''
+cd proto/
+
+protoc -I=. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` zippy.proto
+protoc -I=. --cpp_out=. zippy.proto
+
+mv zippy.pb.h include/
+mv zippy.grpc.pb.h include/
+
+mv zippy.gprc.pb.cc gen/
+mv zippy.pb.cc gen/
+''
