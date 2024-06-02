@@ -1,13 +1,13 @@
 #include "Database.h"
 
 void Database::set(const std::string& key, const std::string& value) {
-    hashTable.set(key, value);
+    data[key] = value;
 }
 
-std::string Database::get(const std::string& key) {
-    return hashTable.get(key);
-}
-
-void Database::del(const std::string& key) {
-    hashTable.del(key);
+std::string Database::get(const std::string& key) const {
+    auto it = data.find(key);
+    if (it != data.end()) {
+        return it->second;
+    }
+    return ""; // Return empty string if key not found
 }
