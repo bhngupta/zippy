@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package zippy;
+
+service ZippyService {
+    rpc Set(SetRequest) returns (SetResponse);
+    rpc Get(GetRequest) returns (GetResponse);
+    rpc Del(DelRequest) returns (DelResponse);
+}
+
+message SetRequest {
+    string key = 1;
+    string value = 2;
+}
+
+message SetResponse {
+    string status = 1;
+}
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    string value = 1;
+}
+
+message DelRequest {
+    string key = 1;
+}
+
+message DelResponse {
+    string status = 1;
+}
