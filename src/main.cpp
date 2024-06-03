@@ -1,8 +1,8 @@
+#include <iostream>
 #include "Server.h"
 
 int main() {
     Server server;
-    server.start();
-    server.stop();
+    server.Run();
     return 0;
 }

@@ -3,12 +3,19 @@ project(zippy)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# Find gRPC and Protobuf packages
+find_package(Protobuf REQUIRED)
+find_package(gRPC REQUIRED)
+
 # List all source files
 set(SOURCES
     src/Database.cpp
     src/ClientHandler.cpp
     src/HashTable.cpp
     src/Server.cpp
+    src/ZippyService.cpp
+    gen/zippy.pb.cc
+    gen/zippy.grpc.pb.cc
     # [IMP] - DO NOT ADD main.cpp HERE IT MESSES UP THE TESTS
     # Add other source files here
 )
@@ -19,6 +26,9 @@ set(HEADERS
     include/ClientHandler.h
     include/HashTable.h
     include/Server.h
+    include/ZippyService.h
+    include/zippy.pb.h
+    include/zippy.grpc.pb.h
     # Add other header files here
 )
 
@@ -27,6 +37,9 @@ include_directories(include/)
 
 # Add executable for the main application
 add_executable(zippy ${SOURCES} src/main.cpp)
+
+# Link gRPC and Protobuf libraries
+target_link_libraries(zippy gRPC::grpc++ protobuf::libprotobuf)
 
 message(STATUS "Building Tests")
 
