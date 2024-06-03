@@ -4,8 +4,9 @@ project(zippy)
 set(CMAKE_CXX_STANDARD 17)
 
 # Find gRPC and Protobuf packages
-find_package(Protobuf REQUIRED)
 find_package(gRPC REQUIRED)
+find_package(Protobuf REQUIRED)
+
 
 # List all source files
 set(SOURCES
@@ -27,19 +28,19 @@ set(HEADERS
     include/HashTable.h
     include/Server.h
     include/ZippyService.h
-    include/zippy.pb.h
-    include/zippy.grpc.pb.h
+    gen/zippy.pb.h
+    gen/zippy.grpc.pb.h
     # Add other header files here
 )
 
 # Include directories
-include_directories(include/)
+include_directories(include/ gen/ ${Protobuf_INCLUDE_DIRS} ${gRPC_INCLUDE_DIRS})
 
 # Add executable for the main application
 add_executable(zippy ${SOURCES} src/main.cpp)
 
-# Link gRPC and Protobuf libraries
-target_link_libraries(zippy gRPC::grpc++ protobuf::libprotobuf)
+# Link main application with Protobuf and gRPC
+target_link_libraries(zippy ${Protobuf_LIBRARIES} ${gRPC_LIBRARIES} gRPC::grpc++)
 
 message(STATUS "Building Tests")
 
@@ -68,7 +69,7 @@ set(TEST_SOURCES
 add_executable(tests ${TEST_SOURCES} ${SOURCES})
 
 # Link against Google Test
-target_link_libraries(tests gtest_main)
+target_link_libraries(tests gtest_main ${Protobuf_LIBRARIES} ${gRPC_LIBRARIES} gRPC::grpc++)
 
 # Add a custom target to run tests
 add_custom_target(run_tests

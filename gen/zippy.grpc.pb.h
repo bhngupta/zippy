@@ -27,6 +27,7 @@
 
 namespace zippy {
 
+// The zippy service definition.
 class ZippyService final {
  public:
   static constexpr char const* service_full_name() {
@@ -35,6 +36,7 @@ class ZippyService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    // Sends a set request
     virtual ::grpc::Status Set(::grpc::ClientContext* context, const ::zippy::SetRequest& request, ::zippy::SetResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::SetResponse>> AsyncSet(::grpc::ClientContext* context, const ::zippy::SetRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::SetResponse>>(AsyncSetRaw(context, request, cq));
@@ -42,6 +44,7 @@ class ZippyService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::SetResponse>> PrepareAsyncSet(::grpc::ClientContext* context, const ::zippy::SetRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::SetResponse>>(PrepareAsyncSetRaw(context, request, cq));
     }
+    // Sends a get request
     virtual ::grpc::Status Get(::grpc::ClientContext* context, const ::zippy::GetRequest& request, ::zippy::GetResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::GetResponse>> AsyncGet(::grpc::ClientContext* context, const ::zippy::GetRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::GetResponse>>(AsyncGetRaw(context, request, cq));
@@ -49,6 +52,7 @@ class ZippyService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::GetResponse>> PrepareAsyncGet(::grpc::ClientContext* context, const ::zippy::GetRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::GetResponse>>(PrepareAsyncGetRaw(context, request, cq));
     }
+    // Sends a delete request
     virtual ::grpc::Status Del(::grpc::ClientContext* context, const ::zippy::DelRequest& request, ::zippy::DelResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::DelResponse>> AsyncDel(::grpc::ClientContext* context, const ::zippy::DelRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::DelResponse>>(AsyncDelRaw(context, request, cq));
@@ -59,10 +63,13 @@ class ZippyService final {
     class async_interface {
      public:
       virtual ~async_interface() {}
+      // Sends a set request
       virtual void Set(::grpc::ClientContext* context, const ::zippy::SetRequest* request, ::zippy::SetResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Set(::grpc::ClientContext* context, const ::zippy::SetRequest* request, ::zippy::SetResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Sends a get request
       virtual void Get(::grpc::ClientContext* context, const ::zippy::GetRequest* request, ::zippy::GetResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Get(::grpc::ClientContext* context, const ::zippy::GetRequest* request, ::zippy::GetResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Sends a delete request
       virtual void Del(::grpc::ClientContext* context, const ::zippy::DelRequest* request, ::zippy::DelResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Del(::grpc::ClientContext* context, const ::zippy::DelRequest* request, ::zippy::DelResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
@@ -137,8 +144,11 @@ class ZippyService final {
    public:
     Service();
     virtual ~Service();
+    // Sends a set request
     virtual ::grpc::Status Set(::grpc::ServerContext* context, const ::zippy::SetRequest* request, ::zippy::SetResponse* response);
+    // Sends a get request
     virtual ::grpc::Status Get(::grpc::ServerContext* context, const ::zippy::GetRequest* request, ::zippy::GetResponse* response);
+    // Sends a delete request
     virtual ::grpc::Status Del(::grpc::ServerContext* context, const ::zippy::DelRequest* request, ::zippy::DelResponse* response);
   };
   template <class BaseClass>

@@ -2,33 +2,43 @@ syntax = "proto3";
 
 package zippy;
 
+// The zippy service definition.
 service ZippyService {
+    // Sends a set request
     rpc Set(SetRequest) returns (SetResponse);
+    // Sends a get request
     rpc Get(GetRequest) returns (GetResponse);
+    // Sends a delete request
     rpc Del(DelRequest) returns (DelResponse);
 }
 
+// The request message containing the key and value.
 message SetRequest {
     string key = 1;
     string value = 2;
 }
 
+// The response message containing the success status.
 message SetResponse {
-    string status = 1;
+    bool success = 1;
 }
 
+// The request message containing the key.
 message GetRequest {
     string key = 1;
 }
 
+// The response message containing the value.
 message GetResponse {
     string value = 1;
 }
 
+// The request message for delete operation containing the key.
 message DelRequest {
     string key = 1;
 }
 
+// The response message for delete operation containing the success status.
 message DelResponse {
-    string status = 1;
+    bool success = 1;
 }
