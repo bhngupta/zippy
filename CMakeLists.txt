@@ -42,7 +42,8 @@ add_executable(zippy ${SOURCES} src/main.cpp)
 # Link main application with Protobuf and gRPC
 target_link_libraries(zippy ${Protobuf_LIBRARIES} ${gRPC_LIBRARIES} gRPC::grpc++)
 
-message(STATUS "Building Tests")
+message(STATUS "-- Zippy Build Finished --")
+message(STATUS "-- Building Tests --")
 
 # Include Google Test
 include(FetchContent)
@@ -61,7 +62,8 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 set(TEST_SOURCES
-    tests/test.cpp
+    tests/tDatabase.cpp
+    tests/tZippyService.cpp
     tests/test_main.cpp # Create a separate main for tests
 )
 

@@ -1,4 +1,6 @@
 // Server.cpp
+#include <iostream>
+#include <string>
 #include "Server.h"
 
 void Server::Run() {
@@ -11,7 +13,7 @@ void Server::Run() {
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&service);
 
-    server = builder.BuildAndStart(); // Assign the server pointer
+    std::unique_ptr<grpc::Server> server(builder.BuildAndStart()); // Assign the server pointer
     std::cout << "Server listening on " << server_address << std::endl;
 
     server->Wait();

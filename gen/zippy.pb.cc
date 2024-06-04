@@ -25,130 +25,47 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace zippy {
 
-inline constexpr SetResponse::Impl_::Impl_(
+inline constexpr CommandResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : success_{false},
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR SetResponse::SetResponse(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct SetResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SetResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SetResponseDefaultTypeInternal() {}
-  union {
-    SetResponse _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetResponseDefaultTypeInternal _SetResponse_default_instance_;
-
-inline constexpr SetRequest::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : key_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        value_(
+      : result_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR SetRequest::SetRequest(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR CommandResponse::CommandResponse(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct SetRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SetRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SetRequestDefaultTypeInternal() {}
+struct CommandResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CommandResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CommandResponseDefaultTypeInternal() {}
   union {
-    SetRequest _instance;
+    CommandResponse _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetRequestDefaultTypeInternal _SetRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommandResponseDefaultTypeInternal _CommandResponse_default_instance_;
 
-inline constexpr GetResponse::Impl_::Impl_(
+inline constexpr CommandRequest::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : value_(
+      : command_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         _cached_size_{0} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR GetResponse::GetResponse(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR CommandRequest::CommandRequest(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct GetResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetResponseDefaultTypeInternal() {}
+struct CommandRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CommandRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CommandRequestDefaultTypeInternal() {}
   union {
-    GetResponse _instance;
+    CommandRequest _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetResponseDefaultTypeInternal _GetResponse_default_instance_;
-
-inline constexpr GetRequest::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : key_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR GetRequest::GetRequest(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct GetRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetRequestDefaultTypeInternal() {}
-  union {
-    GetRequest _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetRequestDefaultTypeInternal _GetRequest_default_instance_;
-
-inline constexpr DelResponse::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : success_{false},
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR DelResponse::DelResponse(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct DelResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DelResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DelResponseDefaultTypeInternal() {}
-  union {
-    DelResponse _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DelResponseDefaultTypeInternal _DelResponse_default_instance_;
-
-inline constexpr DelRequest::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : key_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR DelRequest::DelRequest(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct DelRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DelRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DelRequestDefaultTypeInternal() {}
-  union {
-    DelRequest _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DelRequestDefaultTypeInternal _DelRequest_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommandRequestDefaultTypeInternal _CommandRequest_default_instance_;
 }  // namespace zippy
 static constexpr const ::_pb::EnumDescriptor**
     file_level_enum_descriptors_zippy_2eproto = nullptr;
@@ -158,103 +75,53 @@ const ::uint32_t
     TableStruct_zippy_2eproto::offsets[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
         protodesc_cold) = {
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::zippy::SetRequest, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::zippy::CommandRequest, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::SetRequest, _impl_.key_),
-        PROTOBUF_FIELD_OFFSET(::zippy::SetRequest, _impl_.value_),
+        PROTOBUF_FIELD_OFFSET(::zippy::CommandRequest, _impl_.command_),
         ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::zippy::SetResponse, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::zippy::CommandResponse, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::SetResponse, _impl_.success_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::zippy::GetRequest, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::GetRequest, _impl_.key_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::zippy::GetResponse, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::GetResponse, _impl_.value_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::zippy::DelRequest, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::DelRequest, _impl_.key_),
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::zippy::DelResponse, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::DelResponse, _impl_.success_),
+        PROTOBUF_FIELD_OFFSET(::zippy::CommandResponse, _impl_.result_),
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, -1, -1, sizeof(::zippy::SetRequest)},
-        {10, -1, -1, sizeof(::zippy::SetResponse)},
-        {19, -1, -1, sizeof(::zippy::GetRequest)},
-        {28, -1, -1, sizeof(::zippy::GetResponse)},
-        {37, -1, -1, sizeof(::zippy::DelRequest)},
-        {46, -1, -1, sizeof(::zippy::DelResponse)},
+        {0, -1, -1, sizeof(::zippy::CommandRequest)},
+        {9, -1, -1, sizeof(::zippy::CommandResponse)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
-    &::zippy::_SetRequest_default_instance_._instance,
-    &::zippy::_SetResponse_default_instance_._instance,
-    &::zippy::_GetRequest_default_instance_._instance,
-    &::zippy::_GetResponse_default_instance_._instance,
-    &::zippy::_DelRequest_default_instance_._instance,
-    &::zippy::_DelResponse_default_instance_._instance,
+    &::zippy::_CommandRequest_default_instance_._instance,
+    &::zippy::_CommandResponse_default_instance_._instance,
 };
 const char descriptor_table_protodef_zippy_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\013zippy.proto\022\005zippy\"(\n\nSetRequest\022\013\n\003ke"
-    "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\036\n\013SetResponse\022\017\n"
-    "\007success\030\001 \001(\010\"\031\n\nGetRequest\022\013\n\003key\030\001 \001("
-    "\t\"\034\n\013GetResponse\022\r\n\005value\030\001 \001(\t\"\031\n\nDelRe"
-    "quest\022\013\n\003key\030\001 \001(\t\"\036\n\013DelResponse\022\017\n\007suc"
-    "cess\030\001 \001(\0102\230\001\n\014ZippyService\022,\n\003Set\022\021.zip"
-    "py.SetRequest\032\022.zippy.SetResponse\022,\n\003Get"
-    "\022\021.zippy.GetRequest\032\022.zippy.GetResponse\022"
-    ",\n\003Del\022\021.zippy.DelRequest\032\022.zippy.DelRes"
-    "ponseb\006proto3"
+    "\n\013zippy.proto\022\005zippy\"!\n\016CommandRequest\022\017"
+    "\n\007command\030\001 \001(\t\"!\n\017CommandResponse\022\016\n\006re"
+    "sult\030\001 \001(\t2H\n\005Zippy\022\?\n\016ExecuteCommand\022\025."
+    "zippy.CommandRequest\032\026.zippy.CommandResp"
+    "onseb\006proto3"
 };
 static ::absl::once_flag descriptor_table_zippy_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_zippy_2eproto = {
     false,
     false,
-    373,
+    172,
     descriptor_table_protodef_zippy_2eproto,
     "zippy.proto",
     &descriptor_table_zippy_2eproto_once,
     nullptr,
     0,
-    6,
+    2,
     schemas,
     file_default_instances,
     TableStruct_zippy_2eproto::offsets,
@@ -264,69 +131,66 @@ PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_zippy_2eproto 
 namespace zippy {
 // ===================================================================
 
-class SetRequest::_Internal {
+class CommandRequest::_Internal {
  public:
 };
 
-SetRequest::SetRequest(::google::protobuf::Arena* arena)
+CommandRequest::CommandRequest(::google::protobuf::Arena* arena)
     : ::google::protobuf::Message(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:zippy.SetRequest)
+  // @@protoc_insertion_point(arena_constructor:zippy.CommandRequest)
 }
-inline PROTOBUF_NDEBUG_INLINE SetRequest::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE CommandRequest::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::zippy::SetRequest& from_msg)
-      : key_(arena, from.key_),
-        value_(arena, from.value_),
+    const Impl_& from, const ::zippy::CommandRequest& from_msg)
+      : command_(arena, from.command_),
         _cached_size_{0} {}
 
-SetRequest::SetRequest(
+CommandRequest::CommandRequest(
     ::google::protobuf::Arena* arena,
-    const SetRequest& from)
+    const CommandRequest& from)
     : ::google::protobuf::Message(arena) {
-  SetRequest* const _this = this;
+  CommandRequest* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
 
-  // @@protoc_insertion_point(copy_constructor:zippy.SetRequest)
+  // @@protoc_insertion_point(copy_constructor:zippy.CommandRequest)
 }
-inline PROTOBUF_NDEBUG_INLINE SetRequest::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE CommandRequest::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : key_(arena),
-        value_(arena),
+      : command_(arena),
         _cached_size_{0} {}
 
-inline void SetRequest::SharedCtor(::_pb::Arena* arena) {
+inline void CommandRequest::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
 }
-SetRequest::~SetRequest() {
-  // @@protoc_insertion_point(destructor:zippy.SetRequest)
+CommandRequest::~CommandRequest() {
+  // @@protoc_insertion_point(destructor:zippy.CommandRequest)
   _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
 }
-inline void SetRequest::SharedDtor() {
+inline void CommandRequest::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.key_.Destroy();
-  _impl_.value_.Destroy();
+  _impl_.command_.Destroy();
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-SetRequest::GetClassData() const {
+CommandRequest::GetClassData() const {
   PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
       ClassDataFull _data_ = {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(SetRequest, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_._cached_size_),
               false,
           },
-          &SetRequest::MergeImpl,
-          &SetRequest::kDescriptorMethods,
+          &CommandRequest::MergeImpl,
+          &CommandRequest::kDescriptorMethods,
           &descriptor_table_zippy_2eproto,
           nullptr,  // tracker
       };
@@ -335,212 +199,7 @@ SetRequest::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 33, 2> SetRequest::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_SetRequest_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::zippy::SetRequest>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // string value = 2;
-    {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(SetRequest, _impl_.value_)}},
-    // string key = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(SetRequest, _impl_.key_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // string key = 1;
-    {PROTOBUF_FIELD_OFFSET(SetRequest, _impl_.key_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string value = 2;
-    {PROTOBUF_FIELD_OFFSET(SetRequest, _impl_.value_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-  }},
-  // no aux_entries
-  {{
-    "\20\3\5\0\0\0\0\0"
-    "zippy.SetRequest"
-    "key"
-    "value"
-  }},
-};
-
-PROTOBUF_NOINLINE void SetRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:zippy.SetRequest)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.key_.ClearToEmpty();
-  _impl_.value_.ClearToEmpty();
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* SetRequest::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:zippy.SetRequest)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // string key = 1;
-  if (!this->_internal_key().empty()) {
-    const std::string& _s = this->_internal_key();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.SetRequest.key");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
-  }
-
-  // string value = 2;
-  if (!this->_internal_value().empty()) {
-    const std::string& _s = this->_internal_value();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.SetRequest.value");
-    target = stream->WriteStringMaybeAliased(2, _s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:zippy.SetRequest)
-  return target;
-}
-
-::size_t SetRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:zippy.SetRequest)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
-  // string key = 1;
-  if (!this->_internal_key().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_key());
-  }
-
-  // string value = 2;
-  if (!this->_internal_value().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_value());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void SetRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<SetRequest*>(&to_msg);
-  auto& from = static_cast<const SetRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.SetRequest)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_key().empty()) {
-    _this->_internal_set_key(from._internal_key());
-  }
-  if (!from._internal_value().empty()) {
-    _this->_internal_set_value(from._internal_value());
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void SetRequest::CopyFrom(const SetRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:zippy.SetRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void SetRequest::InternalSwap(SetRequest* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_, &other->_impl_.key_, arena);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, &other->_impl_.value_, arena);
-}
-
-::google::protobuf::Metadata SetRequest::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class SetResponse::_Internal {
- public:
-};
-
-SetResponse::SetResponse(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:zippy.SetResponse)
-}
-SetResponse::SetResponse(
-    ::google::protobuf::Arena* arena, const SetResponse& from)
-    : SetResponse(arena) {
-  MergeFrom(from);
-}
-inline PROTOBUF_NDEBUG_INLINE SetResponse::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
-
-inline void SetResponse::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.success_ = {};
-}
-SetResponse::~SetResponse() {
-  // @@protoc_insertion_point(destructor:zippy.SetResponse)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void SetResponse::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-SetResponse::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(SetResponse, _impl_._cached_size_),
-              false,
-          },
-          &SetResponse::MergeImpl,
-          &SetResponse::kDescriptorMethods,
-          &descriptor_table_zippy_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SetResponse::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 36, 2> CommandRequest::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -551,239 +210,54 @@ const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SetResponse::_table_ = {
     1,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_SetResponse_default_instance_._instance,
+    &_CommandRequest_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::zippy::SetResponse>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::zippy::CommandRequest>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // bool success = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(SetResponse, _impl_.success_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SetResponse, _impl_.success_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // bool success = 1;
-    {PROTOBUF_FIELD_OFFSET(SetResponse, _impl_.success_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
-  }},
-  // no aux_entries
-  {{
-  }},
-};
-
-PROTOBUF_NOINLINE void SetResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:zippy.SetResponse)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.success_ = false;
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* SetResponse::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:zippy.SetResponse)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // bool success = 1;
-  if (this->_internal_success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        1, this->_internal_success(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:zippy.SetResponse)
-  return target;
-}
-
-::size_t SetResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:zippy.SetResponse)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->_internal_success() != 0) {
-    total_size += 2;
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void SetResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<SetResponse*>(&to_msg);
-  auto& from = static_cast<const SetResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.SetResponse)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_success() != 0) {
-    _this->_impl_.success_ = from._impl_.success_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void SetResponse::CopyFrom(const SetResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:zippy.SetResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void SetResponse::InternalSwap(SetResponse* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-        swap(_impl_.success_, other->_impl_.success_);
-}
-
-::google::protobuf::Metadata SetResponse::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class GetRequest::_Internal {
- public:
-};
-
-GetRequest::GetRequest(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:zippy.GetRequest)
-}
-inline PROTOBUF_NDEBUG_INLINE GetRequest::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::zippy::GetRequest& from_msg)
-      : key_(arena, from.key_),
-        _cached_size_{0} {}
-
-GetRequest::GetRequest(
-    ::google::protobuf::Arena* arena,
-    const GetRequest& from)
-    : ::google::protobuf::Message(arena) {
-  GetRequest* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:zippy.GetRequest)
-}
-inline PROTOBUF_NDEBUG_INLINE GetRequest::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : key_(arena),
-        _cached_size_{0} {}
-
-inline void GetRequest::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-}
-GetRequest::~GetRequest() {
-  // @@protoc_insertion_point(destructor:zippy.GetRequest)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void GetRequest::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.key_.Destroy();
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-GetRequest::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(GetRequest, _impl_._cached_size_),
-              false,
-          },
-          &GetRequest::MergeImpl,
-          &GetRequest::kDescriptorMethods,
-          &descriptor_table_zippy_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 28, 2> GetRequest::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_GetRequest_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::zippy::GetRequest>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // string key = 1;
+    // string command = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(GetRequest, _impl_.key_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_.command_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string key = 1;
-    {PROTOBUF_FIELD_OFFSET(GetRequest, _impl_.key_), 0, 0,
+    // string command = 1;
+    {PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_.command_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\20\3\0\0\0\0\0\0"
-    "zippy.GetRequest"
-    "key"
+    "\24\7\0\0\0\0\0\0"
+    "zippy.CommandRequest"
+    "command"
   }},
 };
 
-PROTOBUF_NOINLINE void GetRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:zippy.GetRequest)
+PROTOBUF_NOINLINE void CommandRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:zippy.CommandRequest)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.key_.ClearToEmpty();
+  _impl_.command_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-::uint8_t* GetRequest::_InternalSerialize(
+::uint8_t* CommandRequest::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:zippy.GetRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:zippy.CommandRequest)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string key = 1;
-  if (!this->_internal_key().empty()) {
-    const std::string& _s = this->_internal_key();
+  // string command = 1;
+  if (!this->_internal_command().empty()) {
+    const std::string& _s = this->_internal_command();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.GetRequest.key");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.CommandRequest.command");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -792,123 +266,123 @@ PROTOBUF_NOINLINE void GetRequest::Clear() {
         ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
             _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:zippy.GetRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:zippy.CommandRequest)
   return target;
 }
 
-::size_t GetRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:zippy.GetRequest)
+::size_t CommandRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:zippy.CommandRequest)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string key = 1;
-  if (!this->_internal_key().empty()) {
+  // string command = 1;
+  if (!this->_internal_command().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_key());
+                                    this->_internal_command());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 
-void GetRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<GetRequest*>(&to_msg);
-  auto& from = static_cast<const GetRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.GetRequest)
+void CommandRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<CommandRequest*>(&to_msg);
+  auto& from = static_cast<const CommandRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.CommandRequest)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_key().empty()) {
-    _this->_internal_set_key(from._internal_key());
+  if (!from._internal_command().empty()) {
+    _this->_internal_set_command(from._internal_command());
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetRequest::CopyFrom(const GetRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:zippy.GetRequest)
+void CommandRequest::CopyFrom(const CommandRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:zippy.CommandRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void GetRequest::InternalSwap(GetRequest* PROTOBUF_RESTRICT other) {
+void CommandRequest::InternalSwap(CommandRequest* PROTOBUF_RESTRICT other) {
   using std::swap;
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_, &other->_impl_.key_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.command_, &other->_impl_.command_, arena);
 }
 
-::google::protobuf::Metadata GetRequest::GetMetadata() const {
+::google::protobuf::Metadata CommandRequest::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
 
-class GetResponse::_Internal {
+class CommandResponse::_Internal {
  public:
 };
 
-GetResponse::GetResponse(::google::protobuf::Arena* arena)
+CommandResponse::CommandResponse(::google::protobuf::Arena* arena)
     : ::google::protobuf::Message(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:zippy.GetResponse)
+  // @@protoc_insertion_point(arena_constructor:zippy.CommandResponse)
 }
-inline PROTOBUF_NDEBUG_INLINE GetResponse::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE CommandResponse::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::zippy::GetResponse& from_msg)
-      : value_(arena, from.value_),
+    const Impl_& from, const ::zippy::CommandResponse& from_msg)
+      : result_(arena, from.result_),
         _cached_size_{0} {}
 
-GetResponse::GetResponse(
+CommandResponse::CommandResponse(
     ::google::protobuf::Arena* arena,
-    const GetResponse& from)
+    const CommandResponse& from)
     : ::google::protobuf::Message(arena) {
-  GetResponse* const _this = this;
+  CommandResponse* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
 
-  // @@protoc_insertion_point(copy_constructor:zippy.GetResponse)
+  // @@protoc_insertion_point(copy_constructor:zippy.CommandResponse)
 }
-inline PROTOBUF_NDEBUG_INLINE GetResponse::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE CommandResponse::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : value_(arena),
+      : result_(arena),
         _cached_size_{0} {}
 
-inline void GetResponse::SharedCtor(::_pb::Arena* arena) {
+inline void CommandResponse::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
 }
-GetResponse::~GetResponse() {
-  // @@protoc_insertion_point(destructor:zippy.GetResponse)
+CommandResponse::~CommandResponse() {
+  // @@protoc_insertion_point(destructor:zippy.CommandResponse)
   _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
 }
-inline void GetResponse::SharedDtor() {
+inline void CommandResponse::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.value_.Destroy();
+  _impl_.result_.Destroy();
   _impl_.~Impl_();
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-GetResponse::GetClassData() const {
+CommandResponse::GetClassData() const {
   PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
       ClassDataFull _data_ = {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(GetResponse, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(CommandResponse, _impl_._cached_size_),
               false,
           },
-          &GetResponse::MergeImpl,
-          &GetResponse::kDescriptorMethods,
+          &CommandResponse::MergeImpl,
+          &CommandResponse::kDescriptorMethods,
           &descriptor_table_zippy_2eproto,
           nullptr,  // tracker
       };
@@ -917,7 +391,7 @@ GetResponse::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 31, 2> GetResponse::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 36, 2> CommandResponse::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -928,54 +402,54 @@ const ::_pbi::TcParseTable<0, 1, 0, 31, 2> GetResponse::_table_ = {
     1,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_GetResponse_default_instance_._instance,
+    &_CommandResponse_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::zippy::GetResponse>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::zippy::CommandResponse>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string value = 1;
+    // string result = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(GetResponse, _impl_.value_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(CommandResponse, _impl_.result_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string value = 1;
-    {PROTOBUF_FIELD_OFFSET(GetResponse, _impl_.value_), 0, 0,
+    // string result = 1;
+    {PROTOBUF_FIELD_OFFSET(CommandResponse, _impl_.result_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\21\5\0\0\0\0\0\0"
-    "zippy.GetResponse"
-    "value"
+    "\25\6\0\0\0\0\0\0"
+    "zippy.CommandResponse"
+    "result"
   }},
 };
 
-PROTOBUF_NOINLINE void GetResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:zippy.GetResponse)
+PROTOBUF_NOINLINE void CommandResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:zippy.CommandResponse)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.value_.ClearToEmpty();
+  _impl_.result_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-::uint8_t* GetResponse::_InternalSerialize(
+::uint8_t* CommandResponse::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:zippy.GetResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:zippy.CommandResponse)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string value = 1;
-  if (!this->_internal_value().empty()) {
-    const std::string& _s = this->_internal_value();
+  // string result = 1;
+  if (!this->_internal_result().empty()) {
+    const std::string& _s = this->_internal_result();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.GetResponse.value");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.CommandResponse.result");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -984,422 +458,59 @@ PROTOBUF_NOINLINE void GetResponse::Clear() {
         ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
             _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:zippy.GetResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:zippy.CommandResponse)
   return target;
 }
 
-::size_t GetResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:zippy.GetResponse)
+::size_t CommandResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:zippy.CommandResponse)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string value = 1;
-  if (!this->_internal_value().empty()) {
+  // string result = 1;
+  if (!this->_internal_result().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_value());
+                                    this->_internal_result());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 
-void GetResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<GetResponse*>(&to_msg);
-  auto& from = static_cast<const GetResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.GetResponse)
+void CommandResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<CommandResponse*>(&to_msg);
+  auto& from = static_cast<const CommandResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.CommandResponse)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_value().empty()) {
-    _this->_internal_set_value(from._internal_value());
+  if (!from._internal_result().empty()) {
+    _this->_internal_set_result(from._internal_result());
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetResponse::CopyFrom(const GetResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:zippy.GetResponse)
+void CommandResponse::CopyFrom(const CommandResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:zippy.CommandResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void GetResponse::InternalSwap(GetResponse* PROTOBUF_RESTRICT other) {
+void CommandResponse::InternalSwap(CommandResponse* PROTOBUF_RESTRICT other) {
   using std::swap;
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, &other->_impl_.value_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.result_, &other->_impl_.result_, arena);
 }
 
-::google::protobuf::Metadata GetResponse::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class DelRequest::_Internal {
- public:
-};
-
-DelRequest::DelRequest(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:zippy.DelRequest)
-}
-inline PROTOBUF_NDEBUG_INLINE DelRequest::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::zippy::DelRequest& from_msg)
-      : key_(arena, from.key_),
-        _cached_size_{0} {}
-
-DelRequest::DelRequest(
-    ::google::protobuf::Arena* arena,
-    const DelRequest& from)
-    : ::google::protobuf::Message(arena) {
-  DelRequest* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:zippy.DelRequest)
-}
-inline PROTOBUF_NDEBUG_INLINE DelRequest::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : key_(arena),
-        _cached_size_{0} {}
-
-inline void DelRequest::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-}
-DelRequest::~DelRequest() {
-  // @@protoc_insertion_point(destructor:zippy.DelRequest)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void DelRequest::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.key_.Destroy();
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-DelRequest::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(DelRequest, _impl_._cached_size_),
-              false,
-          },
-          &DelRequest::MergeImpl,
-          &DelRequest::kDescriptorMethods,
-          &descriptor_table_zippy_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 28, 2> DelRequest::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_DelRequest_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::zippy::DelRequest>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // string key = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(DelRequest, _impl_.key_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // string key = 1;
-    {PROTOBUF_FIELD_OFFSET(DelRequest, _impl_.key_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-  }},
-  // no aux_entries
-  {{
-    "\20\3\0\0\0\0\0\0"
-    "zippy.DelRequest"
-    "key"
-  }},
-};
-
-PROTOBUF_NOINLINE void DelRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:zippy.DelRequest)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.key_.ClearToEmpty();
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* DelRequest::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:zippy.DelRequest)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // string key = 1;
-  if (!this->_internal_key().empty()) {
-    const std::string& _s = this->_internal_key();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.DelRequest.key");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:zippy.DelRequest)
-  return target;
-}
-
-::size_t DelRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:zippy.DelRequest)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string key = 1;
-  if (!this->_internal_key().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_key());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void DelRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<DelRequest*>(&to_msg);
-  auto& from = static_cast<const DelRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.DelRequest)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_key().empty()) {
-    _this->_internal_set_key(from._internal_key());
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void DelRequest::CopyFrom(const DelRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:zippy.DelRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void DelRequest::InternalSwap(DelRequest* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.key_, &other->_impl_.key_, arena);
-}
-
-::google::protobuf::Metadata DelRequest::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
-class DelResponse::_Internal {
- public:
-};
-
-DelResponse::DelResponse(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:zippy.DelResponse)
-}
-DelResponse::DelResponse(
-    ::google::protobuf::Arena* arena, const DelResponse& from)
-    : DelResponse(arena) {
-  MergeFrom(from);
-}
-inline PROTOBUF_NDEBUG_INLINE DelResponse::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
-
-inline void DelResponse::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.success_ = {};
-}
-DelResponse::~DelResponse() {
-  // @@protoc_insertion_point(destructor:zippy.DelResponse)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void DelResponse::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-DelResponse::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              &_table_.header,
-              nullptr,  // OnDemandRegisterArenaDtor
-              nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(DelResponse, _impl_._cached_size_),
-              false,
-          },
-          &DelResponse::MergeImpl,
-          &DelResponse::kDescriptorMethods,
-          &descriptor_table_zippy_2eproto,
-          nullptr,  // tracker
-      };
-  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
-  return _data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DelResponse::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_DelResponse_default_instance_._instance,
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::zippy::DelResponse>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // bool success = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(DelResponse, _impl_.success_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(DelResponse, _impl_.success_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // bool success = 1;
-    {PROTOBUF_FIELD_OFFSET(DelResponse, _impl_.success_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
-  }},
-  // no aux_entries
-  {{
-  }},
-};
-
-PROTOBUF_NOINLINE void DelResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:zippy.DelResponse)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.success_ = false;
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-::uint8_t* DelResponse::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:zippy.DelResponse)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // bool success = 1;
-  if (this->_internal_success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        1, this->_internal_success(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:zippy.DelResponse)
-  return target;
-}
-
-::size_t DelResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:zippy.DelResponse)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->_internal_success() != 0) {
-    total_size += 2;
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void DelResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<DelResponse*>(&to_msg);
-  auto& from = static_cast<const DelResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.DelResponse)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_success() != 0) {
-    _this->_impl_.success_ = from._impl_.success_;
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void DelResponse::CopyFrom(const DelResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:zippy.DelResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void DelResponse::InternalSwap(DelResponse* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-        swap(_impl_.success_, other->_impl_.success_);
-}
-
-::google::protobuf::Metadata DelResponse::GetMetadata() const {
+::google::protobuf::Metadata CommandResponse::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)
