@@ -12,7 +12,7 @@ void printMenu() {
 }
 
 int main(int argc, char** argv) {
-    ZippyClient client(grpc::CreateChannel("6.tcp.ngrok.io:12102", grpc::InsecureChannelCredentials()));
+    ZippyClient client(grpc::CreateChannel("0.0.0.0:50051", grpc::InsecureChannelCredentials()));
 
     int choice;
     std::string key, value, command, reply;

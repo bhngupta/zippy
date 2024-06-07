@@ -18,3 +18,7 @@ void HashTable::del(const std::string& key) {
 bool HashTable::exists(const std::string& key) {
     return table.find(key) != table.end();
 }
+
+size_t HashTable::size() const {
+    return table.size();
+}

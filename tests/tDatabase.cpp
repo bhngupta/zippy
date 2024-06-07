@@ -1,63 +1,77 @@
 #include <gtest/gtest.h>
 #include "Database.h"
-#include <thread>  // For sleep_for
+#include <thread>
+#include <chrono>
 
 // Test fixture for Database class
 class DatabaseTest : public ::testing::Test {
 protected:
-    // Member variables
-    Database db;
 
-    // Constructor to initialize Database with capacity and a short TTL for testing
-    DatabaseTest() : db(3, 5) {}  // Set a capacity of 3 for LRU cache and a TTL of 5 seconds for testing
-
-    // Helper functions
     void SetUp() override {
+        db = std::make_unique<Database>(3, 10);
+        db->startBackgroundThread();
         // Code to run before each test
     }
 
     void TearDown() override {
+        db->stopBackgroundThread();
+        db.reset();
         // Code to run after each test
     }
+
+    std::unique_ptr<Database> db;
+
 };
 
 // Test case for set and get methods
-TEST_F(DatabaseTest, SetAndGet) {
-    db.set("key1", "value1");
-    EXPECT_EQ(db.get("key1"), "value1");
-
-    db.set("key2", "value2");
-    EXPECT_EQ(db.get("key2"), "value2");
-}
-
-// Test case for non-existing key
-TEST_F(DatabaseTest, NonExistingKey) {
-    EXPECT_EQ(db.get("non_existing"), "");
+TEST_F(DatabaseTest, SetGetTest) {
+    db->set("key1", "value1");
+    EXPECT_EQ(db->get("key1"), "value1");
 }
 
 // Test case for deleting a key
-TEST_F(DatabaseTest, DeleteKey) {
-    db.set("key1", "value1");
-    db.del("key1");
-    EXPECT_EQ(db.get("key1"), "");
+TEST_F(DatabaseTest, DeletionTest) {
+    db->set("key3", "value3");
+    db->del("key3");
+    EXPECT_EQ(db->get("key3"), ""); // Should return empty as the key has been deleted
 }
 
-// Test case for expired key
-TEST_F(DatabaseTest, ExpiredKey) {
-    db.set("key1", "value1");
-    std::this_thread::sleep_for(std::chrono::seconds(6));  // Sleep for longer than the TTL
-    EXPECT_EQ(db.get("key1"), "");
+// Test expiration
+TEST_F(DatabaseTest, ExpirationTest) {
+    db->set("key2", "value2");
+    std::this_thread::sleep_for(std::chrono::seconds(11)); // Wait for TTL to expire
+    EXPECT_EQ(db->get("key2"), ""); // Should return empty as the key has expired
+}
+
+// Test for LRU eviction
+TEST_F(DatabaseTest, LRUEvictionTest) {
+    db->set("key1", "value1");
+    db->set("key2", "value2");
+    db->set("key3", "value3");
+    db->set("key4", "value4");
+
+    // As key1 is the oldest, it should be evicted
+    EXPECT_EQ(db->get("key1"), ""); 
+    EXPECT_EQ(db->get("key4"), "value4");
 }
 
 // Test case for eviction policy (LRU)
-TEST_F(DatabaseTest, EvictionPolicy) {
-    db.set("key1", "value1");
-    db.set("key2", "value2");
-    db.set("key3", "value3");
-    db.set("key4", "value4");  // This should evict key1 (the least recently used)
+TEST_F(DatabaseTest, LRUOrderTest) {
+    db->set("key1", "value1");
+    db->set("key2", "value2");
+    db->set("key3", "value3");
+    db->get("key1");
+    db->set("key4", "value4");
 
-    EXPECT_EQ(db.get("key1"), "");  // key1 should have been evicted
-    EXPECT_EQ(db.get("key2"), "value2");
-    EXPECT_EQ(db.get("key3"), "value3");
-    EXPECT_EQ(db.get("key4"), "value4");
+    EXPECT_EQ(db->get("key2"), ""); // key2 should be evicted
+    EXPECT_EQ(db->get("key1"), "value1");
+    EXPECT_EQ(db->get("key4"), "value4");
+}
+
+TEST_F(DatabaseTest, UpdateExpirationTimeTest) {
+    db->set("key4", "value4");
+    std::this_thread::sleep_for(std::chrono::seconds(5)); // Wait for half TTL
+    db->get("key4"); // Access should update expiration time
+    std::this_thread::sleep_for(std::chrono::seconds(6)); // Wait more than half TTL
+    EXPECT_EQ(db->get("key4"), "value4"); // Should still be available as TTL was reset
 }
