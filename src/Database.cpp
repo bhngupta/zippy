@@ -97,7 +97,7 @@ void Database::stopBackgroundThread() {
 
 void Database::backgroundTask() {
     while (running_) {
-        std::this_thread::sleep_for(std::chrono::seconds(30));
+        std::this_thread::sleep_for(std::chrono::seconds(2));
         {
             std::lock_guard<std::mutex> lock(mutex_);
             purgeExpired();

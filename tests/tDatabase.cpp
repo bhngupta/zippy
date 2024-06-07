@@ -8,7 +8,7 @@ class DatabaseTest : public ::testing::Test {
 protected:
 
     void SetUp() override {
-        db = std::make_unique<Database>(3, 10);
+        db = std::make_unique<Database>(3, 2);
         db->startBackgroundThread();
         // Code to run before each test
     }
@@ -39,7 +39,7 @@ TEST_F(DatabaseTest, DeletionTest) {
 // Test expiration
 TEST_F(DatabaseTest, ExpirationTest) {
     db->set("key2", "value2");
-    std::this_thread::sleep_for(std::chrono::seconds(11)); // Wait for TTL to expire
+    std::this_thread::sleep_for(std::chrono::seconds(3)); // Wait for TTL to expire
     EXPECT_EQ(db->get("key2"), ""); // Should return empty as the key has expired
 }
 
@@ -70,8 +70,8 @@ TEST_F(DatabaseTest, LRUOrderTest) {
 
 TEST_F(DatabaseTest, UpdateExpirationTimeTest) {
     db->set("key4", "value4");
-    std::this_thread::sleep_for(std::chrono::seconds(5)); // Wait for half TTL
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Wait for half TTL
     db->get("key4"); // Access should update expiration time
-    std::this_thread::sleep_for(std::chrono::seconds(6)); // Wait more than half TTL
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Wait more than half TTL
     EXPECT_EQ(db->get("key4"), "value4"); // Should still be available as TTL was reset
 }

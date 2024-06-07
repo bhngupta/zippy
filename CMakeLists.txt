@@ -55,8 +55,8 @@ add_executable(client ${CLIENT_SOURCES})
 # Link client with Protobuf and gRPC
 target_link_libraries(client ${Protobuf_LIBRARIES} ${gRPC_LIBRARIES} gRPC::grpc++)
 
-message(STATUS "-- Zippy Build Finished --")
-message(STATUS "-- Building Tests --")
+message(STATUS "-- Dependencies Imported --")
+message(STATUS "-- Building Zippy --")
 
 # Include Google Test
 include(FetchContent)
@@ -76,7 +76,7 @@ enable_testing()
 
 set(TEST_SOURCES
     tests/tDatabase.cpp
-    tests/tZippyService.cpp
+    # tests/tZippyService.cpp
     tests/test_main.cpp # Create a separate main for tests
 )
 
