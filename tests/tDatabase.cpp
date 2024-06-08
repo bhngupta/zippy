@@ -9,7 +9,7 @@ class DatabaseTest : public ::testing::Test {
 protected:
 
     void SetUp() override {
-        db = std::make_unique<Database>(3, 10, std::chrono::milliseconds(100));
+        db = std::make_unique<Database>(3, 2, std::chrono::milliseconds(100));
         db->startBackgroundThread();
         // Code to run before each test
     }
@@ -68,6 +68,16 @@ TEST_F(DatabaseTest, LRUOrderTest) {
     EXPECT_EQ(db->get("key1"), "value1");
     EXPECT_EQ(db->get("key4"), "value4");
 }
+
+
+TEST_F(DatabaseTest, UpdateExpirationTimeTest) {
+    db->set("key4", "value4");
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Wait for half TTL
+    db->get("key4"); // Access should update expiration time
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Wait more than half TTL
+    EXPECT_EQ(db->get("key4"), "value4"); // Should still be available as TTL was reset
+}
+
 
 // Additional test for snapshot functionality
 TEST_F(DatabaseTest, SnapshotTest) {
@@ -189,12 +199,4 @@ TEST_F(DatabaseTest, DeleteFromSnapshotTest) {
 
     db->del("key2");
     EXPECT_EQ(db->get("key2"), ""); // Should return empty as the key has been deleted from the snapshot
-}
-
-TEST_F(DatabaseTest, UpdateExpirationTimeTest) {
-    db->set("key4", "value4");
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Wait for half TTL
-    db->get("key4"); // Access should update expiration time
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // Wait more than half TTL
-    EXPECT_EQ(db->get("key4"), "value4"); // Should still be available as TTL was reset
 }

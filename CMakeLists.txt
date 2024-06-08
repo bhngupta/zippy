@@ -75,7 +75,7 @@ enable_testing()
 
 set(TEST_SOURCES
     tests/tDatabase.cpp
-    # tests/tZippyService.cpp
+    tests/tZippyService.cpp
     tests/test_main.cpp # Create a separate main for tests
 )
 
