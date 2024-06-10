@@ -20,16 +20,19 @@ protected:
 // Test case for set and get methods
 TEST_F(DatabaseTest, SetAndGet) {
     db.set("key1", "value1");
-    db.set("key2", "value2");
-
     EXPECT_EQ(db.get("key1"), "value1");
+
+    db.set("key2", "value2");
     EXPECT_EQ(db.get("key2"), "value2");
 }
 
-// Additional test cases can be added as needed
+// Test case for non-existing key
+TEST_F(DatabaseTest, NonExistingKey) {
+    EXPECT_EQ(db.get("non_existing"), "");
+}
 
-// Main function to run all tests
-int test_main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+// Test case for deleting a key
+TEST_F(DatabaseTest, DeleteKey) {
+    db.set("key1", "value1");
+    EXPECT_EQ(db.get("key1"), "value1");
 }

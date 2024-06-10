@@ -9,7 +9,7 @@ set(SOURCES
     src/ClientHandler.cpp
     src/HashTable.cpp
     src/Server.cpp
-    main.cpp
+    # [IMP] - DO NOT ADD main.cpp HERE IT MESSES UP THE TESTS
     # Add other source files here
 )
 
@@ -26,7 +26,7 @@ set(HEADERS
 include_directories(include/)
 
 # Add executable for the main application
-add_executable(zippy ${SOURCES} main.cpp)
+add_executable(zippy ${SOURCES} src/main.cpp)
 
 message(STATUS "Building Tests")
 
@@ -36,6 +36,7 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
+  DOWNLOAD_EXTRACT_TIMESTAMP true
 )
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings
@@ -45,15 +46,20 @@ FetchContent_MakeAvailable(googletest)
 # Enable testing
 enable_testing()
 
+set(TEST_SOURCES
+    tests/test.cpp
+    tests/test_main.cpp # Create a separate main for tests
+)
+
 # Add test executable
-add_executable(tests tests/test.cpp ${SOURCES})
+add_executable(tests ${TEST_SOURCES} ${SOURCES})
 
 # Link against Google Test
 target_link_libraries(tests gtest_main)
 
-# Custom target to run tests
+# Add a custom target to run tests
 add_custom_target(run_tests
-    COMMAND ./tests --verbose
+    COMMAND tests --gtest_color=yes
     DEPENDS tests
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
