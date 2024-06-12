@@ -8,7 +8,6 @@ grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zi
     std::istringstream iss(command);
     std::string arg;
     iss >> arg;
-    // std::string client = context->peer();
 
     if (arg == "SET") {
         std::string key, value;
