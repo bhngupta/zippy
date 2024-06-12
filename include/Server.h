@@ -3,7 +3,7 @@
 #define SERVER_H
 
 #include <grpcpp/grpcpp.h>
-#include "ZippyServiceImpl.h"
+#include "ZippyService.h"
 
 class Server {
 public:

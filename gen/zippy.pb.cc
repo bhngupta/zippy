@@ -27,9 +27,7 @@ namespace zippy {
 
 inline constexpr SetResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : status_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
+      : success_{false},
         _cached_size_{0} {}
 
 template <typename>
@@ -114,9 +112,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr DelResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : status_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
+      : success_{false},
         _cached_size_{0} {}
 
 template <typename>
@@ -179,7 +175,7 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::SetResponse, _impl_.status_),
+        PROTOBUF_FIELD_OFFSET(::zippy::SetResponse, _impl_.success_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::zippy::GetRequest, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -215,7 +211,7 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::zippy::DelResponse, _impl_.status_),
+        PROTOBUF_FIELD_OFFSET(::zippy::DelResponse, _impl_.success_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -238,21 +234,21 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_zippy_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\013zippy.proto\022\005zippy\"(\n\nSetRequest\022\013\n\003ke"
-    "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\035\n\013SetResponse\022\016\n"
-    "\006status\030\001 \001(\t\"\031\n\nGetRequest\022\013\n\003key\030\001 \001(\t"
-    "\"\034\n\013GetResponse\022\r\n\005value\030\001 \001(\t\"\031\n\nDelReq"
-    "uest\022\013\n\003key\030\001 \001(\t\"\035\n\013DelResponse\022\016\n\006stat"
-    "us\030\001 \001(\t2\230\001\n\014ZippyService\022,\n\003Set\022\021.zippy"
-    ".SetRequest\032\022.zippy.SetResponse\022,\n\003Get\022\021"
-    ".zippy.GetRequest\032\022.zippy.GetResponse\022,\n"
-    "\003Del\022\021.zippy.DelRequest\032\022.zippy.DelRespo"
-    "nseb\006proto3"
+    "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\036\n\013SetResponse\022\017\n"
+    "\007success\030\001 \001(\010\"\031\n\nGetRequest\022\013\n\003key\030\001 \001("
+    "\t\"\034\n\013GetResponse\022\r\n\005value\030\001 \001(\t\"\031\n\nDelRe"
+    "quest\022\013\n\003key\030\001 \001(\t\"\036\n\013DelResponse\022\017\n\007suc"
+    "cess\030\001 \001(\0102\230\001\n\014ZippyService\022,\n\003Set\022\021.zip"
+    "py.SetRequest\032\022.zippy.SetResponse\022,\n\003Get"
+    "\022\021.zippy.GetRequest\032\022.zippy.GetResponse\022"
+    ",\n\003Del\022\021.zippy.DelRequest\032\022.zippy.DelRes"
+    "ponseb\006proto3"
 };
 static ::absl::once_flag descriptor_table_zippy_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_zippy_2eproto = {
     false,
     false,
-    371,
+    373,
     descriptor_table_protodef_zippy_2eproto,
     "zippy.proto",
     &descriptor_table_zippy_2eproto_once,
@@ -499,32 +495,19 @@ SetResponse::SetResponse(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:zippy.SetResponse)
 }
-inline PROTOBUF_NDEBUG_INLINE SetResponse::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::zippy::SetResponse& from_msg)
-      : status_(arena, from.status_),
-        _cached_size_{0} {}
-
 SetResponse::SetResponse(
-    ::google::protobuf::Arena* arena,
-    const SetResponse& from)
-    : ::google::protobuf::Message(arena) {
-  SetResponse* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:zippy.SetResponse)
+    ::google::protobuf::Arena* arena, const SetResponse& from)
+    : SetResponse(arena) {
+  MergeFrom(from);
 }
 inline PROTOBUF_NDEBUG_INLINE SetResponse::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : status_(arena),
-        _cached_size_{0} {}
+      : _cached_size_{0} {}
 
 inline void SetResponse::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.success_ = {};
 }
 SetResponse::~SetResponse() {
   // @@protoc_insertion_point(destructor:zippy.SetResponse)
@@ -533,7 +516,6 @@ SetResponse::~SetResponse() {
 }
 inline void SetResponse::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.status_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -558,7 +540,7 @@ SetResponse::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 32, 2> SetResponse::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> SetResponse::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -576,21 +558,18 @@ const ::_pbi::TcParseTable<0, 1, 0, 32, 2> SetResponse::_table_ = {
     ::_pbi::TcParser::GetTable<::zippy::SetResponse>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string status = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(SetResponse, _impl_.status_)}},
+    // bool success = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(SetResponse, _impl_.success_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SetResponse, _impl_.success_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string status = 1;
-    {PROTOBUF_FIELD_OFFSET(SetResponse, _impl_.status_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // bool success = 1;
+    {PROTOBUF_FIELD_OFFSET(SetResponse, _impl_.success_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
   }},
   // no aux_entries
   {{
-    "\21\6\0\0\0\0\0\0"
-    "zippy.SetResponse"
-    "status"
   }},
 };
 
@@ -601,7 +580,7 @@ PROTOBUF_NOINLINE void SetResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.status_.ClearToEmpty();
+  _impl_.success_ = false;
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -612,12 +591,11 @@ PROTOBUF_NOINLINE void SetResponse::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string status = 1;
-  if (!this->_internal_status().empty()) {
-    const std::string& _s = this->_internal_status();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.SetResponse.status");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_success(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -637,10 +615,9 @@ PROTOBUF_NOINLINE void SetResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string status = 1;
-  if (!this->_internal_status().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_status());
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 2;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -655,8 +632,8 @@ void SetResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::goo
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_status().empty()) {
-    _this->_internal_set_status(from._internal_status());
+  if (from._internal_success() != 0) {
+    _this->_impl_.success_ = from._impl_.success_;
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -671,10 +648,8 @@ void SetResponse::CopyFrom(const SetResponse& from) {
 
 void SetResponse::InternalSwap(SetResponse* PROTOBUF_RESTRICT other) {
   using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.status_, &other->_impl_.status_, arena);
+        swap(_impl_.success_, other->_impl_.success_);
 }
 
 ::google::protobuf::Metadata SetResponse::GetMetadata() const {
@@ -1267,32 +1242,19 @@ DelResponse::DelResponse(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:zippy.DelResponse)
 }
-inline PROTOBUF_NDEBUG_INLINE DelResponse::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::zippy::DelResponse& from_msg)
-      : status_(arena, from.status_),
-        _cached_size_{0} {}
-
 DelResponse::DelResponse(
-    ::google::protobuf::Arena* arena,
-    const DelResponse& from)
-    : ::google::protobuf::Message(arena) {
-  DelResponse* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:zippy.DelResponse)
+    ::google::protobuf::Arena* arena, const DelResponse& from)
+    : DelResponse(arena) {
+  MergeFrom(from);
 }
 inline PROTOBUF_NDEBUG_INLINE DelResponse::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : status_(arena),
-        _cached_size_{0} {}
+      : _cached_size_{0} {}
 
 inline void DelResponse::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.success_ = {};
 }
 DelResponse::~DelResponse() {
   // @@protoc_insertion_point(destructor:zippy.DelResponse)
@@ -1301,7 +1263,6 @@ DelResponse::~DelResponse() {
 }
 inline void DelResponse::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.status_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -1326,7 +1287,7 @@ DelResponse::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 32, 2> DelResponse::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DelResponse::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1344,21 +1305,18 @@ const ::_pbi::TcParseTable<0, 1, 0, 32, 2> DelResponse::_table_ = {
     ::_pbi::TcParser::GetTable<::zippy::DelResponse>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string status = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(DelResponse, _impl_.status_)}},
+    // bool success = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(DelResponse, _impl_.success_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(DelResponse, _impl_.success_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string status = 1;
-    {PROTOBUF_FIELD_OFFSET(DelResponse, _impl_.status_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // bool success = 1;
+    {PROTOBUF_FIELD_OFFSET(DelResponse, _impl_.success_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
   }},
   // no aux_entries
   {{
-    "\21\6\0\0\0\0\0\0"
-    "zippy.DelResponse"
-    "status"
   }},
 };
 
@@ -1369,7 +1327,7 @@ PROTOBUF_NOINLINE void DelResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.status_.ClearToEmpty();
+  _impl_.success_ = false;
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -1380,12 +1338,11 @@ PROTOBUF_NOINLINE void DelResponse::Clear() {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string status = 1;
-  if (!this->_internal_status().empty()) {
-    const std::string& _s = this->_internal_status();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.DelResponse.status");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        1, this->_internal_success(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1405,10 +1362,9 @@ PROTOBUF_NOINLINE void DelResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string status = 1;
-  if (!this->_internal_status().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_status());
+  // bool success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += 2;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1423,8 +1379,8 @@ void DelResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::goo
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_status().empty()) {
-    _this->_internal_set_status(from._internal_status());
+  if (from._internal_success() != 0) {
+    _this->_impl_.success_ = from._impl_.success_;
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1439,10 +1395,8 @@ void DelResponse::CopyFrom(const DelResponse& from) {
 
 void DelResponse::InternalSwap(DelResponse* PROTOBUF_RESTRICT other) {
   using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.status_, &other->_impl_.status_, arena);
+        swap(_impl_.success_, other->_impl_.success_);
 }
 
 ::google::protobuf::Metadata DelResponse::GetMetadata() const {

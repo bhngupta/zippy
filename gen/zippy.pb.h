@@ -205,22 +205,16 @@ class SetResponse final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kStatusFieldNumber = 1,
+    kSuccessFieldNumber = 1,
   };
-  // string status = 1;
-  void clear_status() ;
-  const std::string& status() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_status(Arg_&& arg, Args_... args);
-  std::string* mutable_status();
-  PROTOBUF_NODISCARD std::string* release_status();
-  void set_allocated_status(std::string* value);
+  // bool success = 1;
+  void clear_success() ;
+  bool success() const;
+  void set_success(bool value);
 
   private:
-  const std::string& _internal_status() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_status(
-      const std::string& value);
-  std::string* _internal_mutable_status();
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
 
   public:
   // @@protoc_insertion_point(class_scope:zippy.SetResponse)
@@ -229,7 +223,7 @@ class SetResponse final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       0, 1, 0,
-      32, 2>
+      0, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -249,7 +243,7 @@ class SetResponse final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const SetResponse& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr status_;
+    bool success_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -931,22 +925,16 @@ class DelResponse final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kStatusFieldNumber = 1,
+    kSuccessFieldNumber = 1,
   };
-  // string status = 1;
-  void clear_status() ;
-  const std::string& status() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_status(Arg_&& arg, Args_... args);
-  std::string* mutable_status();
-  PROTOBUF_NODISCARD std::string* release_status();
-  void set_allocated_status(std::string* value);
+  // bool success = 1;
+  void clear_success() ;
+  bool success() const;
+  void set_success(bool value);
 
   private:
-  const std::string& _internal_status() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_status(
-      const std::string& value);
-  std::string* _internal_mutable_status();
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
 
   public:
   // @@protoc_insertion_point(class_scope:zippy.DelResponse)
@@ -955,7 +943,7 @@ class DelResponse final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       0, 1, 0,
-      32, 2>
+      0, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -975,7 +963,7 @@ class DelResponse final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const DelResponse& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr status_;
+    bool success_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -1280,54 +1268,26 @@ inline void SetRequest::set_allocated_value(std::string* value) {
 
 // SetResponse
 
-// string status = 1;
-inline void SetResponse::clear_status() {
+// bool success = 1;
+inline void SetResponse::clear_success() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.ClearToEmpty();
+  _impl_.success_ = false;
 }
-inline const std::string& SetResponse::status() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:zippy.SetResponse.status)
-  return _internal_status();
+inline bool SetResponse::success() const {
+  // @@protoc_insertion_point(field_get:zippy.SetResponse.success)
+  return _internal_success();
 }
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void SetResponse::set_status(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:zippy.SetResponse.status)
+inline void SetResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:zippy.SetResponse.success)
 }
-inline std::string* SetResponse::mutable_status() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_status();
-  // @@protoc_insertion_point(field_mutable:zippy.SetResponse.status)
-  return _s;
-}
-inline const std::string& SetResponse::_internal_status() const {
+inline bool SetResponse::_internal_success() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.status_.Get();
+  return _impl_.success_;
 }
-inline void SetResponse::_internal_set_status(const std::string& value) {
+inline void SetResponse::_internal_set_success(bool value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.Set(value, GetArena());
-}
-inline std::string* SetResponse::_internal_mutable_status() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.status_.Mutable( GetArena());
-}
-inline std::string* SetResponse::release_status() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:zippy.SetResponse.status)
-  return _impl_.status_.Release();
-}
-inline void SetResponse::set_allocated_status(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.SetAllocated(value, GetArena());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.status_.IsDefault()) {
-          _impl_.status_.Set("", GetArena());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:zippy.SetResponse.status)
+  _impl_.success_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -1496,54 +1456,26 @@ inline void DelRequest::set_allocated_key(std::string* value) {
 
 // DelResponse
 
-// string status = 1;
-inline void DelResponse::clear_status() {
+// bool success = 1;
+inline void DelResponse::clear_success() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.ClearToEmpty();
+  _impl_.success_ = false;
 }
-inline const std::string& DelResponse::status() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:zippy.DelResponse.status)
-  return _internal_status();
+inline bool DelResponse::success() const {
+  // @@protoc_insertion_point(field_get:zippy.DelResponse.success)
+  return _internal_success();
 }
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void DelResponse::set_status(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:zippy.DelResponse.status)
+inline void DelResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:zippy.DelResponse.success)
 }
-inline std::string* DelResponse::mutable_status() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_status();
-  // @@protoc_insertion_point(field_mutable:zippy.DelResponse.status)
-  return _s;
-}
-inline const std::string& DelResponse::_internal_status() const {
+inline bool DelResponse::_internal_success() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.status_.Get();
+  return _impl_.success_;
 }
-inline void DelResponse::_internal_set_status(const std::string& value) {
+inline void DelResponse::_internal_set_success(bool value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.Set(value, GetArena());
-}
-inline std::string* DelResponse::_internal_mutable_status() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.status_.Mutable( GetArena());
-}
-inline std::string* DelResponse::release_status() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:zippy.DelResponse.status)
-  return _impl_.status_.Release();
-}
-inline void DelResponse::set_allocated_status(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.status_.SetAllocated(value, GetArena());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.status_.IsDefault()) {
-          _impl_.status_.Set("", GetArena());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:zippy.DelResponse.status)
+  _impl_.success_ = value;
 }
 
 #ifdef __GNUC__
