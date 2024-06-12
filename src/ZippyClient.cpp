@@ -2,23 +2,61 @@
 #include <grpcpp/grpcpp.h>
 #include <iostream>
 
+void printMenu() {
+    std::cout << "\nChoose an operation:\n";
+    std::cout << "1. SET a value\n";
+    std::cout << "2. GET a value\n";
+    std::cout << "3. DEL a value\n";
+    std::cout << "4. Exit\n";
+    std::cout << "Enter your choice: ";
+}
+
 int main(int argc, char** argv) {
-    ZippyClient client(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
+    ZippyClient client(grpc::CreateChannel("6.tcp.ngrok.io:12102", grpc::InsecureChannelCredentials()));
 
-    // Test SET command
-    std::string setCommand = "SET test_key test_value";
-    std::string reply = client.ExecuteCommand(setCommand);
-    std::cout << "Set response: " << reply << std::endl;
+    int choice;
+    std::string key, value, command, reply;
 
-    // Test GET command
-    std::string getCommand = "GET test_key";
-    reply = client.ExecuteCommand(getCommand);
-    std::cout << "Get response: " << reply << std::endl;
+    do {
+        printMenu();
+        std::cin >> choice;
 
-    // Test DEL command
-    std::string delCommand = "DEL test_key";
-    reply = client.ExecuteCommand(delCommand);
-    std::cout << "Del response: " << reply << std::endl;
+        switch (choice) {
+            case 1:  // SET
+                std::cout << "Enter key: ";
+                std::cin >> key;
+                std::cout << "Enter value: ";
+                std::cin >> value;
+                command = "SET " + key + " " + value;
+                reply = client.ExecuteCommand(command);
+                std::cout << "Set response: " << reply << std::endl;
+                break;
+
+            case 2:  // GET
+                std::cout << "Enter key: ";
+                std::cin >> key;
+                command = "GET " + key;
+                reply = client.ExecuteCommand(command);
+                std::cout << "Get response: " << reply << std::endl;
+                break;
+
+            case 3:  // DEL
+                std::cout << "Enter key: ";
+                std::cin >> key;
+                command = "DEL " + key;
+                reply = client.ExecuteCommand(command);
+                std::cout << "Del response: " << reply << std::endl;
+                break;
+
+            case 4:  // Exit
+                std::cout << "Exiting...\n";
+                break;
+
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+                break;
+        }
+    } while (choice != 4);
 
     return 0;
 }
