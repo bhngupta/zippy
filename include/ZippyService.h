@@ -12,7 +12,7 @@ public:
 
 private:
     Database& db_;
-    void log(const std::string& operation, const std::string& key, const std::string& value ="");
+    void log(const std::string& operation, const std::string& key, const std::string& value = "");
 };
 
 #endif // ZIPPYSERVICEIMPL_H
