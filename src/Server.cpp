@@ -5,7 +5,7 @@
 
 void Server::Run() {
     std::string server_address("0.0.0.0:50051");
-    Database db; // Create a Database instance
+    Database db(3); // Create a Database instance
 
     ZippyService service(db); // Pass the Database instance to ZippyService
 
