@@ -20,12 +20,19 @@ set(SOURCES
     # [IMP] - DO NOT ADD main.cpp HERE IT MESSES UP THE TESTS
     # Add other source files here
 )
+# List all source files for the client
+set(CLIENT_SOURCES
+    src/ZippyClient.cpp
+    gen/zippy.pb.cc
+    gen/zippy.grpc.pb.cc
+)
 
 # List all header files
 set(HEADERS
     include/Database.h
     include/ClientHandler.h
     include/HashTable.h
+    include/ZippyClient.h
     include/Server.h
     include/ZippyService.h
     gen/zippy.pb.h
@@ -41,6 +48,12 @@ add_executable(zippy ${SOURCES} src/main.cpp)
 
 # Link main application with Protobuf and gRPC
 target_link_libraries(zippy ${Protobuf_LIBRARIES} ${gRPC_LIBRARIES} gRPC::grpc++)
+
+# Add executable for the client
+add_executable(client ${CLIENT_SOURCES})
+
+# Link client with Protobuf and gRPC
+target_link_libraries(client ${Protobuf_LIBRARIES} ${gRPC_LIBRARIES} gRPC::grpc++)
 
 message(STATUS "-- Zippy Build Finished --")
 message(STATUS "-- Building Tests --")

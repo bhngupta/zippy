@@ -5,3 +5,4 @@ CmakeCache.txt
 *.a
 *.so
 *.exe
+.vscode
