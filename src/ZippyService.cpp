@@ -1,22 +1,31 @@
+#include <sstream>
+#include <string>
+#include <iostream>
 #include "ZippyService.h"
 
-grpc::Status ZippyService::Set(grpc::ServerContext* context, const zippy::SetRequest* request,
-                               zippy::SetResponse* response) {
-    db_.set(request->key(), request->value());
-    response->set_success(true);
-    return grpc::Status::OK;
-}
+grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zippy::CommandRequest* request, zippy::CommandResponse* response) {
+    std::string command = request->command();
+    std::istringstream iss(command);
+    std::string arg;
+    iss >> arg;
 
-grpc::Status ZippyService::Get(grpc::ServerContext* context, const zippy::GetRequest* request,
-                               zippy::GetResponse* response) {
-    std::string value = db_.get(request->key());
-    response->set_value(value);
-    return grpc::Status::OK;
-}
-
-grpc::Status ZippyService::Del(grpc::ServerContext* context, const zippy::DelRequest* request,
-                               zippy::DelResponse* response) {
-    db_.del(request->key());
-    response->set_success(true);
+    if (arg == "SET") {
+        std::string key, value;
+        iss >> key >> value;
+        db_.set(key, value);
+        response->set_result("Set operation performed successfully");
+    } else if (arg == "GET") {
+        std::string key;
+        iss >> key;
+        std::string retrievedValue = db_.get(key);
+        response->set_result("Retrieved value: " + retrievedValue);
+    } else if (arg == "DEL") {
+        std::string key;
+        iss >> key;
+        db_.del(key);
+        response->set_result("Delete operation performed successfully");
+    } else {
+        response->set_result("Invalid command");
+    }
     return grpc::Status::OK;
 }

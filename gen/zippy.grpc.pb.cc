@@ -21,144 +21,60 @@
 #include <grpcpp/support/sync_stream.h>
 namespace zippy {
 
-static const char* ZippyService_method_names[] = {
-  "/zippy.ZippyService/Set",
-  "/zippy.ZippyService/Get",
-  "/zippy.ZippyService/Del",
+static const char* Zippy_method_names[] = {
+  "/zippy.Zippy/ExecuteCommand",
 };
 
-std::unique_ptr< ZippyService::Stub> ZippyService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+std::unique_ptr< Zippy::Stub> Zippy::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< ZippyService::Stub> stub(new ZippyService::Stub(channel, options));
+  std::unique_ptr< Zippy::Stub> stub(new Zippy::Stub(channel, options));
   return stub;
 }
 
-ZippyService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_Set_(ZippyService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Get_(ZippyService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Del_(ZippyService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+Zippy::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_ExecuteCommand_(Zippy_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status ZippyService::Stub::Set(::grpc::ClientContext* context, const ::zippy::SetRequest& request, ::zippy::SetResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::zippy::SetRequest, ::zippy::SetResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Set_, context, request, response);
+::grpc::Status Zippy::Stub::ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::zippy::CommandResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::zippy::CommandRequest, ::zippy::CommandResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ExecuteCommand_, context, request, response);
 }
 
-void ZippyService::Stub::async::Set(::grpc::ClientContext* context, const ::zippy::SetRequest* request, ::zippy::SetResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::zippy::SetRequest, ::zippy::SetResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Set_, context, request, response, std::move(f));
+void Zippy::Stub::async::ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::zippy::CommandRequest, ::zippy::CommandResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ExecuteCommand_, context, request, response, std::move(f));
 }
 
-void ZippyService::Stub::async::Set(::grpc::ClientContext* context, const ::zippy::SetRequest* request, ::zippy::SetResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Set_, context, request, response, reactor);
+void Zippy::Stub::async::ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ExecuteCommand_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::zippy::SetResponse>* ZippyService::Stub::PrepareAsyncSetRaw(::grpc::ClientContext* context, const ::zippy::SetRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::zippy::SetResponse, ::zippy::SetRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Set_, context, request);
+::grpc::ClientAsyncResponseReader< ::zippy::CommandResponse>* Zippy::Stub::PrepareAsyncExecuteCommandRaw(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::zippy::CommandResponse, ::zippy::CommandRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ExecuteCommand_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::zippy::SetResponse>* ZippyService::Stub::AsyncSetRaw(::grpc::ClientContext* context, const ::zippy::SetRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::zippy::CommandResponse>* Zippy::Stub::AsyncExecuteCommandRaw(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncSetRaw(context, request, cq);
+    this->PrepareAsyncExecuteCommandRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status ZippyService::Stub::Get(::grpc::ClientContext* context, const ::zippy::GetRequest& request, ::zippy::GetResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::zippy::GetRequest, ::zippy::GetResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Get_, context, request, response);
-}
-
-void ZippyService::Stub::async::Get(::grpc::ClientContext* context, const ::zippy::GetRequest* request, ::zippy::GetResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::zippy::GetRequest, ::zippy::GetResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, std::move(f));
-}
-
-void ZippyService::Stub::async::Get(::grpc::ClientContext* context, const ::zippy::GetRequest* request, ::zippy::GetResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, reactor);
-}
-
-::grpc::ClientAsyncResponseReader< ::zippy::GetResponse>* ZippyService::Stub::PrepareAsyncGetRaw(::grpc::ClientContext* context, const ::zippy::GetRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::zippy::GetResponse, ::zippy::GetRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Get_, context, request);
-}
-
-::grpc::ClientAsyncResponseReader< ::zippy::GetResponse>* ZippyService::Stub::AsyncGetRaw(::grpc::ClientContext* context, const ::zippy::GetRequest& request, ::grpc::CompletionQueue* cq) {
-  auto* result =
-    this->PrepareAsyncGetRaw(context, request, cq);
-  result->StartCall();
-  return result;
-}
-
-::grpc::Status ZippyService::Stub::Del(::grpc::ClientContext* context, const ::zippy::DelRequest& request, ::zippy::DelResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::zippy::DelRequest, ::zippy::DelResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Del_, context, request, response);
-}
-
-void ZippyService::Stub::async::Del(::grpc::ClientContext* context, const ::zippy::DelRequest* request, ::zippy::DelResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::zippy::DelRequest, ::zippy::DelResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Del_, context, request, response, std::move(f));
-}
-
-void ZippyService::Stub::async::Del(::grpc::ClientContext* context, const ::zippy::DelRequest* request, ::zippy::DelResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Del_, context, request, response, reactor);
-}
-
-::grpc::ClientAsyncResponseReader< ::zippy::DelResponse>* ZippyService::Stub::PrepareAsyncDelRaw(::grpc::ClientContext* context, const ::zippy::DelRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::zippy::DelResponse, ::zippy::DelRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Del_, context, request);
-}
-
-::grpc::ClientAsyncResponseReader< ::zippy::DelResponse>* ZippyService::Stub::AsyncDelRaw(::grpc::ClientContext* context, const ::zippy::DelRequest& request, ::grpc::CompletionQueue* cq) {
-  auto* result =
-    this->PrepareAsyncDelRaw(context, request, cq);
-  result->StartCall();
-  return result;
-}
-
-ZippyService::Service::Service() {
+Zippy::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ZippyService_method_names[0],
+      Zippy_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ZippyService::Service, ::zippy::SetRequest, ::zippy::SetResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-          [](ZippyService::Service* service,
+      new ::grpc::internal::RpcMethodHandler< Zippy::Service, ::zippy::CommandRequest, ::zippy::CommandResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Zippy::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::zippy::SetRequest* req,
-             ::zippy::SetResponse* resp) {
-               return service->Set(ctx, req, resp);
-             }, this)));
-  AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ZippyService_method_names[1],
-      ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ZippyService::Service, ::zippy::GetRequest, ::zippy::GetResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-          [](ZippyService::Service* service,
-             ::grpc::ServerContext* ctx,
-             const ::zippy::GetRequest* req,
-             ::zippy::GetResponse* resp) {
-               return service->Get(ctx, req, resp);
-             }, this)));
-  AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ZippyService_method_names[2],
-      ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ZippyService::Service, ::zippy::DelRequest, ::zippy::DelResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
-          [](ZippyService::Service* service,
-             ::grpc::ServerContext* ctx,
-             const ::zippy::DelRequest* req,
-             ::zippy::DelResponse* resp) {
-               return service->Del(ctx, req, resp);
+             const ::zippy::CommandRequest* req,
+             ::zippy::CommandResponse* resp) {
+               return service->ExecuteCommand(ctx, req, resp);
              }, this)));
 }
 
-ZippyService::Service::~Service() {
+Zippy::Service::~Service() {
 }
 
-::grpc::Status ZippyService::Service::Set(::grpc::ServerContext* context, const ::zippy::SetRequest* request, ::zippy::SetResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status ZippyService::Service::Get(::grpc::ServerContext* context, const ::zippy::GetRequest* request, ::zippy::GetResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status ZippyService::Service::Del(::grpc::ServerContext* context, const ::zippy::DelRequest* request, ::zippy::DelResponse* response) {
+::grpc::Status Zippy::Service::ExecuteCommand(::grpc::ServerContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response) {
   (void) context;
   (void) request;
   (void) response;
