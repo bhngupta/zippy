@@ -14,3 +14,7 @@ std::string HashTable::get(const std::string& key) {
 void HashTable::del(const std::string& key) {
     table.erase(key);
 }
+
+bool HashTable::exists(const std::string& key) {
+    return table.find(key) != table.end();
+}
