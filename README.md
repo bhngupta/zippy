@@ -12,7 +12,7 @@ Zippy is a lightweight, gRPC-based in-memory data store that offers robust key-v
 
 ## The WHY?
 
-This project was born from an idea discussed over the dinner table — "How do companies like Uber and WhatsApp manage millions of data transactions every second?". Intrigued by the complexity of this challenge, we delved into the inner workings of high-performance systems, inspired by this [Uber Engineering Blog](https://www.uber.com/blog/how-uber-serves-over-40-million-reads-per-second-using-an-integrated-cache/). We got interested in the inner workings of Redis and wanted to learn how it works. What better way to learn and master the art of system design by implementing it by ourselves. 
+This project was born from a question discussed over the dinner table — "How do companies like Uber and WhatsApp manage millions of data transactions every second?". Intrigued by the complexity of this challenge, we delved into the inner workings of high-performance systems, inspired by this [Uber Engineering Blog](https://www.uber.com/blog/how-uber-serves-over-40-million-reads-per-second-using-an-integrated-cache/). We got interested in the inner workings of Redis and wanted to learn how it works. What better way to learn and master the art of system design by implementing it by ourselves. 
 
 
 ## Choice of Language
