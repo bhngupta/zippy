@@ -39,10 +39,6 @@ Thumbs.db
 *.mo
 *.note
 
-# Ignore gRPC generated files (if you want to exclude them)
-zippy_pb2.py
-zippy_pb2_grpc.py
-
 # Ignore personal IDE/Editor settings
 .idea/
 .vscode/
