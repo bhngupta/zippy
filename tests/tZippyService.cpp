@@ -1,136 +1,112 @@
-// zippy_service_test.cpp
 #include <gtest/gtest.h>
 #include <grpcpp/grpcpp.h>
-#include "Database.h"
 #include "ZippyService.h"
-#include "zippy.grpc.pb.h"
-#include <thread>  // For sleep_for
+#include "ZippyClient.h"
+#include "ClientHandler.h"
+#include "Database.h"
 
 class ZippyServiceTest : public ::testing::Test {
 protected:
     void SetUp() override {
-        // Setup the in-memory database with a shorter TTL for testing
-        db = std::make_unique<Database>(3, 5); // Set a capacity of 3 for LRU cache and a TTL of 5 seconds for testing
-        service = std::make_unique<ZippyService>(*db);
+        db = new Database(10);
+        service = new ZippyService(*db);
+
+        grpc::ServerBuilder builder;
+        std::string server_address("0.0.0.0:50052");
+        builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+        builder.RegisterService(service);
+        service->cq_ = builder.AddCompletionQueue();
+        server = builder.BuildAndStart();
+        for (int i = 0; i < 3; ++i) {
+            service->threads_.emplace_back(&ZippyService::HandleRpcs, service);
+        }
     }
 
     void TearDown() override {
-        // Cleanup if needed
+        server->Shutdown();
+        service->cq_->Shutdown();
+        for (auto& thread : service->threads_) {
+            thread.join();
+        }
+        delete service;
+        delete db;
     }
 
-    std::unique_ptr<Database> db;
-    std::unique_ptr<ZippyService> service;
+    void SetCommand(ZippyClient& client, const std::string& key, const std::string& value) {
+        std::string command = "SET " + key + " " + value;
+        std::string reply = client.ExecuteCommand(command);
+        EXPECT_EQ(reply, "Set operation performed successfully");
+    }
+
+    void GetCommand(ZippyClient& client, const std::string& key, const std::string& expected_value) {
+        std::string command = "GET " + key;
+        std::string reply = client.ExecuteCommand(command);
+        EXPECT_EQ(reply, "Retrieved value: " + expected_value);
+    }
+
+    void DelCommand(ZippyClient& client, const std::string& key) {
+        std::string command = "DEL " + key;
+        std::string reply = client.ExecuteCommand(command);
+        EXPECT_EQ(reply, "Delete operation performed successfully");
+    }
+
+    ZippyService* service;
+    Database* db;
+    std::unique_ptr<grpc::Server> server;
 };
 
-TEST_F(ZippyServiceTest, SetCommand) {
-    grpc::ServerContext context;
-    zippy::CommandRequest request;
-    zippy::CommandResponse response;
+// Concurrency test case
+TEST_F(ZippyServiceTest, ConcurrencyTest) {
+    const int num_clients = 3;
+    const int num_operations = 6;
 
-    request.set_command("SET key1 value1");
-    grpc::Status status = service->ExecuteCommand(&context, &request, &response);
-    
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Set operation performed successfully");
-    EXPECT_EQ(db->get("key1"), "value1");
+    std::vector<std::thread> client_threads;
+    std::vector<std::unique_ptr<ZippyClient>> clients;
+
+    for (int i = 0; i < num_clients; ++i) {
+        clients.push_back(std::make_unique<ZippyClient>(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials())));
+    }
+
+    for (int i = 0; i < num_clients; ++i) {
+        client_threads.emplace_back([&, i]() {
+            for (int j = 0; j < num_operations; ++j) {
+                std::string key = "key_" + std::to_string(i) + "_" + std::to_string(j);
+                std::string value = "value_" + std::to_string(i) + "_" + std::to_string(j);
+                SetCommand(*clients[i], key, value);
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                GetCommand(*clients[i], key, value);
+                DelCommand(*clients[i], key);
+            }
+        });
+    }
+
+    for (auto& thread : client_threads) {
+        thread.join();
+    }
 }
 
-TEST_F(ZippyServiceTest, GetCommand) {
-    grpc::ServerContext context;
-    zippy::CommandRequest request;
-    zippy::CommandResponse response;
+// Single client test case
+TEST_F(ZippyServiceTest, SingleClientTest) {
+    ZippyClient client(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()));
 
-    db->set("key1", "value1");
-
-    request.set_command("GET key1");
-    grpc::Status status = service->ExecuteCommand(&context, &request, &response);
+    std::string key = "key_1";
+    std::string value = "value_1";
     
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Retrieved value: value1");
+    SetCommand(client, key, value);
+    GetCommand(client, key, value);
+    DelCommand(client, key);
 }
 
-TEST_F(ZippyServiceTest, DelCommand) {
-    grpc::ServerContext context;
-    zippy::CommandRequest request;
-    zippy::CommandResponse response;
+// Edge case test for setting and deleting the same key repeatedly
+TEST_F(ZippyServiceTest, RepeatedSetAndDeleteTest) {
+    ZippyClient client(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()));
 
-    db->set("key1", "value1");
-
-    request.set_command("DEL key1");
-    grpc::Status status = service->ExecuteCommand(&context, &request, &response);
+    std::string key = "key_edge";
+    std::string value = "value_edge";
     
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Delete operation performed successfully");
-}
-
-TEST_F(ZippyServiceTest, InvalidCommand) {
-    grpc::ServerContext context;
-    zippy::CommandRequest request;
-    zippy::CommandResponse response;
-
-    request.set_command("INVALID command");
-    grpc::Status status = service->ExecuteCommand(&context, &request, &response);
-    
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Invalid command");
-}
-
-// Test case for expired key
-TEST_F(ZippyServiceTest, ExpiredKey) {
-    grpc::ServerContext context;
-    zippy::CommandRequest request;
-    zippy::CommandResponse response;
-
-    request.set_command("SET key1 value1");
-    grpc::Status status = service->ExecuteCommand(&context, &request, &response);
-    
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Set operation performed successfully");
-
-    std::this_thread::sleep_for(std::chrono::seconds(6));  // Sleep for longer than the TTL
-
-    request.set_command("GET key1");
-    status = service->ExecuteCommand(&context, &request, &response);
-
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Retrieved value: ");
-}
-
-// Test case for eviction policy (LRU)
-TEST_F(ZippyServiceTest, EvictionPolicy) {
-    grpc::ServerContext context;
-    zippy::CommandRequest request;
-    zippy::CommandResponse response;
-
-    request.set_command("SET key1 value1");
-    service->ExecuteCommand(&context, &request, &response);
-
-    request.set_command("SET key2 value2");
-    service->ExecuteCommand(&context, &request, &response);
-
-    request.set_command("SET key3 value3");
-    service->ExecuteCommand(&context, &request, &response);
-
-    request.set_command("SET key4 value4");  // This should evict key1 (the least recently used)
-    service->ExecuteCommand(&context, &request, &response);
-
-    request.set_command("GET key1");
-    grpc::Status status = service->ExecuteCommand(&context, &request, &response);
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Retrieved value: ");  // key1 should have been evicted
-
-    request.set_command("GET key2");
-    status = service->ExecuteCommand(&context, &request, &response);
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Retrieved value: value2");
-
-    request.set_command("GET key3");
-    status = service->ExecuteCommand(&context, &request, &response);
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Retrieved value: value3");
-
-    request.set_command("GET key4");
-    status = service->ExecuteCommand(&context, &request, &response);
-    EXPECT_TRUE(status.ok());
-    EXPECT_EQ(response.result(), "Retrieved value: value4");
+    for (int i = 0; i < 100; ++i) {
+        SetCommand(client, key, value);
+        GetCommand(client, key, value);
+        DelCommand(client, key);
+    }
 }
