@@ -6,12 +6,13 @@
 #include <grpcpp/grpcpp.h>
 #include <thread>
 #include <vector>
+#include <atomic>
 
 class ZippyService final : public zippy::Zippy::AsyncService {
 public:
     explicit ZippyService(Database& db);
     ~ZippyService();
-
+    void Shutdown();
     grpc::Status ExecuteCommand(grpc::ServerContext* context, const zippy::CommandRequest* request, zippy::CommandResponse* response) override;
 
     void HandleRpcs();
@@ -24,6 +25,9 @@ public:
 
 private:
     Database& db_;
+    std::mutex shutdown_mutex_;
+    std::condition_variable shutdown_cv_;
+    std::atomic<bool> shutdown_;
 };
 
 #endif // ZIPPYSERVICEIMPL_H
