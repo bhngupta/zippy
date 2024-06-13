@@ -186,17 +186,19 @@ TEST_F(DatabaseTest, DeleteFromSnapshotTest) {
     db->set("key1", "value1");
     db->set("key2", "value2");
 
-    // Force snapshot save and clear the in-memory database
+    // Force snapshot save
     db->forceSnapshot();
-    db->del("key1");
-    db->del("key2");
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Short wait to ensure snapshot is saved
 
-    // Test delete from snapshot
+    // Clear the in-memory database
     db->del("key1");
-    EXPECT_EQ(db->get("key1"), ""); // Should return empty as the key has been deleted from the snapshot
+    db->del("key2");
+
+    // Ensure keys are deleted from both in-memory and snapshot
+    db->del("key1");
+    EXPECT_EQ(db->get("key1"), ""); // Should return empty as the key has been deleted from both in-memory and snapshot
 
     db->del("key2");
-    EXPECT_EQ(db->get("key2"), ""); // Should return empty as the key has been deleted from the snapshot
+    EXPECT_EQ(db->get("key2"), ""); // Should return empty as the key has been deleted from both in-memory and snapshot
 }
