@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package zippy;
+
+// The request message containing the command.
+message CommandRequest {
+    string command = 1;
+}
+
+// The response message containing the result.
+message CommandResponse {
+    string result = 1;
+}
+
+// The Zippy service definition.
+service Zippy {
+    rpc ExecuteCommand(CommandRequest) returns (CommandResponse);
+}

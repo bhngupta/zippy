@@ -6,3 +6,62 @@ CmakeCache.txt
 *.so
 *.exe
 .vscode
+
+# Python gitignore files
+
+# Ignore virtual environment directories
+zippy_env/
+.env/
+venv/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.swp
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Python generated files
+*.egg-info/
+.eggs/
+*.egg
+*.log
+*.pot
+*.py[cod]
+*.sqlite3
+*.coverage
+*.cover
+.coverage.*
+.cache
+*.pytest_cache/
+*.mo
+*.note
+
+# Ignore gRPC generated files (if you want to exclude them)
+zippy_pb2.py
+zippy_pb2_grpc.py
+
+# Ignore personal IDE/Editor settings
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore Windows specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore backup files
+*.bak
+*.tmp
+*.old
+*.orig
+
+# Ignore test reports
+test-reports/
