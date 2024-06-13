@@ -10,6 +10,7 @@ public:
     std::string get(const std::string& key);
     void del(const std::string& key);
     bool exists(const std::string& key);
+    size_t size() const;
 
 private:
     std::unordered_map<std::string, std::string> table;

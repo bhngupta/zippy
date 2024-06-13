@@ -9,3 +9,7 @@ cd build
 cmake ..
 
 make
+
+cd build
+
+make run_tests
