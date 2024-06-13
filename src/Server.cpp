@@ -5,7 +5,9 @@
 
 void Server::Run() {
     std::string server_address("0.0.0.0:50051");
-    Database db(3); // Create a Database instance
+    Database db(10, 600, std::chrono::minutes(2));
+
+    db.startBackgroundThread();
 
     ZippyService service(db); // Pass the Database instance to ZippyService
 
@@ -23,4 +25,5 @@ void Server::Run() {
     }
 
     service.server_->Wait();
+    db.stopBackgroundThread(); 
 }

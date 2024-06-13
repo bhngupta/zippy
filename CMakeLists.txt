@@ -15,10 +15,9 @@ set(SOURCES
     src/HashTable.cpp
     src/Server.cpp
     src/ZippyService.cpp
+    src/SnapshotManager.cpp
     gen/zippy.pb.cc
     gen/zippy.grpc.pb.cc
-    # [IMP] - DO NOT ADD main.cpp HERE IT MESSES UP THE TESTS
-    # Add other source files here
 )
 # List all source files for the client
 set(CLIENT_SOURCES
@@ -35,9 +34,9 @@ set(HEADERS
     include/ZippyClient.h
     include/Server.h
     include/ZippyService.h
+    include/SnapshotManager.h
     gen/zippy.pb.h
     gen/zippy.grpc.pb.h
-    # Add other header files here
 )
 
 # Include directories

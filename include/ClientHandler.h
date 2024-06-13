@@ -4,7 +4,6 @@
 
 #include "zippy.grpc.pb.h"
 #include "Database.h"
-#include "ZippyService.h"
 #include <grpcpp/grpcpp.h>
 
 class ZippyService;

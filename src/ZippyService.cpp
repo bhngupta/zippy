@@ -4,14 +4,30 @@
 #include <string>
 #include <iostream>
 
-ZippyService::ZippyService(Database& db) : db_(db) {}
+ZippyService::ZippyService(Database& db) : db_(db), shutdown_(false) {
+    server_ = nullptr;
+    cq_ = nullptr;
+}
 
 ZippyService::~ZippyService() {
     std::cout << "ZippyService instance destroyed" << std::endl;
-    server_->Shutdown();
-    cq_->Shutdown();
-    for (auto& thread : threads_) {
-        thread.join();
+    Shutdown();
+}
+
+void ZippyService::Shutdown() {
+    if (!shutdown_) {
+        shutdown_ = true;
+        if (server_) {
+            server_->Shutdown();
+        }
+        if (cq_) {
+            cq_->Shutdown();
+        }
+        for (auto& thread : threads_) {
+            if (thread.joinable()) {
+                thread.join();
+            }
+        }
     }
 }
 
@@ -63,14 +79,23 @@ void ZippyService::log(const std::string& operation, const std::string& key, con
 
 void ZippyService::HandleRpcs() {
     new ClientHandler(&db_, this, cq_.get());
-    void *tag;
+    void* tag;
     bool ok;
+
     while (true) {
-        GPR_ASSERT(cq_->Next(&tag, &ok));
-        if (ok) {
-            static_cast<ClientHandler*>(tag)->Proceed();
+        std::cout << "Waiting for next event in completion queue" << std::endl;
+        if (cq_->Next(&tag, &ok)) {
+            if (ok) {
+                std::cout << "Processing tag" << std::endl;
+                static_cast<ClientHandler*>(tag)->Proceed();
+            } else {
+                std::cout << "Deleting tag" << std::endl;
+                delete static_cast<ClientHandler*>(tag);
+            }
         } else {
-            delete static_cast<ClientHandler*>(tag);
+            std::cout << "Failed to get next event, shutting down HandleRpcs loop" << std::endl;
+            break;
         }
     }
+    std::cout << "Exited HandleRpcs loop" << std::endl;
 }
