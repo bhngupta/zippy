@@ -13,8 +13,14 @@ void Server::Run() {
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&service);
 
-    std::unique_ptr<grpc::Server> server(builder.BuildAndStart()); // Assign the server pointer
+    service.cq_ = builder.AddCompletionQueue();
+    service.server_ = builder.BuildAndStart();
+    // std::unique_ptr<grpc::Server> server(builder.BuildAndStart()); // Assign the server pointer
     std::cout << "Server listening on " << server_address << std::endl;
 
-    server->Wait();
+    for (int i = 0; i < 3; i++) {
+        service.threads_.emplace_back(&ZippyService::HandleRpcs, &service);
+    }
+
+    service.server_->Wait();
 }

@@ -12,6 +12,7 @@ void printMenu() {
 }
 
 int main(int argc, char** argv) {
+
     ZippyClient client(grpc::CreateChannel("0.0.0.0:50051", grpc::InsecureChannelCredentials()));
 
     int choice;
