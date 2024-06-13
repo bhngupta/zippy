@@ -20,6 +20,7 @@ public:
         if (status.ok()) {
             return response.result();
         } else {
+            std::cerr << "RPC failed: " << status.error_code() << ": " << status.error_message() << std::endl;
             return "RPC failed";
         }
     }

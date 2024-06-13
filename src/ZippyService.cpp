@@ -1,7 +1,19 @@
+#include "ZippyService.h"
+#include "ClientHandler.h"
 #include <sstream>
 #include <string>
 #include <iostream>
-#include "ZippyService.h"
+
+ZippyService::ZippyService(Database& db) : db_(db) {}
+
+ZippyService::~ZippyService() {
+    std::cout << "ZippyService instance destroyed" << std::endl;
+    server_->Shutdown();
+    cq_->Shutdown();
+    for (auto& thread : threads_) {
+        thread.join();
+    }
+}
 
 grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zippy::CommandRequest* request, zippy::CommandResponse* response) {
     std::string command = request->command();
@@ -46,5 +58,19 @@ void ZippyService::log(const std::string& operation, const std::string& key, con
         std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Key: " << key << std::endl;
     } else {
         std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Command: " << key << std::endl;
+    }
+}
+
+void ZippyService::HandleRpcs() {
+    new ClientHandler(&db_, this, cq_.get());
+    void *tag;
+    bool ok;
+    while (true) {
+        GPR_ASSERT(cq_->Next(&tag, &ok));
+        if (ok) {
+            static_cast<ClientHandler*>(tag)->Proceed();
+        } else {
+            delete static_cast<ClientHandler*>(tag);
+        }
     }
 }
