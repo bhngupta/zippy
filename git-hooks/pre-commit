@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Find all .cpp and .h files, excluding those in the gen/ directory, and run clang-format on them
+find . -path ./gen -prune -o -regex '.*\.\(cpp\|h\)' -exec clang-format -i {} \;
+
+# Add the formatted files to git
+git add .

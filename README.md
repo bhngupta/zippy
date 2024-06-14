@@ -61,7 +61,15 @@ Ensure you have the following installed:
    cd zippy
    ```
 
-2. Build the project:
+2. (Optional) Run Hooks & Tests
+
+   ```bash
+   ./scripts/setup_hooks.sh
+   ./scripts/run_tests.sh
+   ```
+
+
+3. Build the project:
 
    ```bash
    mkdir build
@@ -69,7 +77,8 @@ Ensure you have the following installed:
    cmake ..
    make
    ```
-3. Run the server:
+
+4. Run the server:
 
    ```bash
    ./zippy

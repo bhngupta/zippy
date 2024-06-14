@@ -13,3 +13,7 @@ make
 cd build
 
 make run_tests
+
+cd ..
+
+rm -rf build
