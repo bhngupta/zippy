@@ -5,3 +5,5 @@ find . -path ./gen -prune -o -regex '.*\.\(cpp\|h\)' -exec clang-format -i {} \;
 
 # Add the formatted files to git
 git add .
+
+echo " || pre-commit completed ||"
