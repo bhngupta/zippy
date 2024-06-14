@@ -96,28 +96,40 @@ void ZippyService::HandleRpcs() {
   std::cout << "Exited HandleRpcs loop" << std::endl;
 }
 
-// || Helper Functions ||
+std::string ZippyService::getCurrentTime() {
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+    return ss.str();
+}
 
 void ZippyService::log(const std::string &client_id, const std::string &operation,
                        const std::string &key, const std::string &value) {
-  if (operation == "SET") {
-    std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
-              << ", Value: " << value << std::endl;
-  } else if (operation == "GET") {
-    if (value.empty()) {
-      std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
-                << ", Result: Key not found" << std::endl;
+    std::string timestamp = getCurrentTime();
+    if (operation == "SET") {
+        std::cout << "[" << timestamp << "] "
+                  << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
+                  << ", Value: " << value << std::endl;
+    } else if (operation == "GET") {
+        if (value.empty()) {
+            std::cout << "[" << timestamp << "] "
+                      << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
+                      << ", Result: Key not found" << std::endl;
+        } else {
+            std::cout << "[" << timestamp << "] "
+                      << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
+                      << ", Value: " << value << std::endl;
+        }
+    } else if (operation == "DEL") {
+        std::cout << "[" << timestamp << "] "
+                  << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
+                  << std::endl;
     } else {
-      std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
-                << ", Value: " << value << std::endl;
+        std::cout << "[" << timestamp << "] "
+                  << "Client: " << client_id << ", Operation: " << operation << ", Command: " << key
+                  << std::endl;
     }
-  } else if (operation == "DEL") {
-    std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key
-              << std::endl;
-  } else {
-    std::cout << "Client: " << client_id << ", Operation: " << operation << ", Command: " << key
-              << std::endl;
-  }
 }
 
 void ZippyService::RemoveClientID(grpc::ServerContext *context) {

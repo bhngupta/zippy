@@ -10,4 +10,6 @@ cmake ..
 
 make
 
-./zippy -f ../logger.log
+mkdir -p ../logs
+
+./zippy -f ../logs/logger_$(date +%Y-%m-%d_%H-%M-%S).log
