@@ -38,6 +38,23 @@ Our system has 2 main parts:
 
 ![Zippy Architecture Diagram](https://github.com/bhngupta/zippy/blob/main/misc/zippy-arch.png?raw=true)
 
+## Benchmarks 
+
+The benchmarking script measures the performance of Zippy by executing three types of operations: SET, GET, and DEL. For each operation, the script evaluates the average throughput and average time per operation across multiple clients.
+
+- **SET**: Adds a key-value pair to the data store.
+- **GET**: Retrieves the value associated with a key from the data store.
+- **DEL**: Deletes a key-value pair from the data store.
+
+1. **Multiple Clients**: Simulates multiple clients to test concurrency.
+2. **Operation Execution**: Each client performs a specified number of requests for each operation.
+3. **Performance Metrics**:
+    - **Average Throughput**: Number of operations per second.
+    - **Average Time per Operation**: Time taken to complete each operation.
+4. **Wall-Clock Time**: Total time for the benchmark.
+
+![Benchmark Results](https://github.com/bhngupta/zippy/blob/main/misc/benchmarks.png?raw=true)
+
 ## Getting Started
 
 ### Prerequisites
