@@ -22,6 +22,7 @@ private:
     zippy::CommandRequest request_;
     zippy::CommandResponse response_;
     grpc::ServerAsyncResponseWriter<zippy::CommandResponse> responder_;
+    std::string client_id_; // Client ID
 
     enum CallStatus { CREATE, PROCESS, FINISH };
     CallStatus status_;

@@ -17,7 +17,6 @@ void Server::Run() {
 
     service.cq_ = builder.AddCompletionQueue();
     service.server_ = builder.BuildAndStart();
-    // std::unique_ptr<grpc::Server> server(builder.BuildAndStart()); // Assign the server pointer
     std::cout << "Server listening on " << server_address << std::endl;
 
     for (int i = 0; i < 3; i++) {

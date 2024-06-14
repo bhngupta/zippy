@@ -25,6 +25,39 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace zippy {
 
+inline constexpr UUIDResponse::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : client_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR UUIDResponse::UUIDResponse(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct UUIDResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UUIDResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UUIDResponseDefaultTypeInternal() {}
+  union {
+    UUIDResponse _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UUIDResponseDefaultTypeInternal _UUIDResponse_default_instance_;
+      template <typename>
+PROTOBUF_CONSTEXPR UUIDRequest::UUIDRequest(::_pbi::ConstantInitialized) {}
+struct UUIDRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UUIDRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UUIDRequestDefaultTypeInternal() {}
+  union {
+    UUIDRequest _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UUIDRequestDefaultTypeInternal _UUIDRequest_default_instance_;
+
 inline constexpr CommandResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : result_(
@@ -49,6 +82,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 inline constexpr CommandRequest::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : command_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        client_id_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         _cached_size_{0} {}
@@ -83,6 +119,7 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::zippy::CommandRequest, _impl_.command_),
+        PROTOBUF_FIELD_OFFSET(::zippy::CommandRequest, _impl_.client_id_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::zippy::CommandResponse, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -92,36 +129,60 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::zippy::CommandResponse, _impl_.result_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::zippy::UUIDRequest, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::zippy::UUIDResponse, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::zippy::UUIDResponse, _impl_.client_id_),
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, -1, -1, sizeof(::zippy::CommandRequest)},
-        {9, -1, -1, sizeof(::zippy::CommandResponse)},
+        {10, -1, -1, sizeof(::zippy::CommandResponse)},
+        {19, -1, -1, sizeof(::zippy::UUIDRequest)},
+        {27, -1, -1, sizeof(::zippy::UUIDResponse)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::zippy::_CommandRequest_default_instance_._instance,
     &::zippy::_CommandResponse_default_instance_._instance,
+    &::zippy::_UUIDRequest_default_instance_._instance,
+    &::zippy::_UUIDResponse_default_instance_._instance,
 };
 const char descriptor_table_protodef_zippy_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\013zippy.proto\022\005zippy\"!\n\016CommandRequest\022\017"
-    "\n\007command\030\001 \001(\t\"!\n\017CommandResponse\022\016\n\006re"
-    "sult\030\001 \001(\t2H\n\005Zippy\022\?\n\016ExecuteCommand\022\025."
-    "zippy.CommandRequest\032\026.zippy.CommandResp"
-    "onseb\006proto3"
+    "\n\013zippy.proto\022\005zippy\"4\n\016CommandRequest\022\017"
+    "\n\007command\030\001 \001(\t\022\021\n\tclient_id\030\002 \001(\t\"!\n\017Co"
+    "mmandResponse\022\016\n\006result\030\001 \001(\t\"\r\n\013UUIDReq"
+    "uest\"!\n\014UUIDResponse\022\021\n\tclient_id\030\001 \001(\t2"
+    "\203\001\n\005Zippy\022\?\n\016ExecuteCommand\022\025.zippy.Comm"
+    "andRequest\032\026.zippy.CommandResponse\0229\n\014Ge"
+    "nerateUUID\022\022.zippy.UUIDRequest\032\023.zippy.U"
+    "UIDResponse\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_zippy_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_zippy_2eproto = {
     false,
     false,
-    172,
+    301,
     descriptor_table_protodef_zippy_2eproto,
     "zippy.proto",
     &descriptor_table_zippy_2eproto_once,
     nullptr,
     0,
-    2,
+    4,
     schemas,
     file_default_instances,
     TableStruct_zippy_2eproto::offsets,
@@ -144,6 +205,7 @@ inline PROTOBUF_NDEBUG_INLINE CommandRequest::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::zippy::CommandRequest& from_msg)
       : command_(arena, from.command_),
+        client_id_(arena, from.client_id_),
         _cached_size_{0} {}
 
 CommandRequest::CommandRequest(
@@ -162,6 +224,7 @@ inline PROTOBUF_NDEBUG_INLINE CommandRequest::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : command_(arena),
+        client_id_(arena),
         _cached_size_{0} {}
 
 inline void CommandRequest::SharedCtor(::_pb::Arena* arena) {
@@ -175,6 +238,7 @@ CommandRequest::~CommandRequest() {
 inline void CommandRequest::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.command_.Destroy();
+  _impl_.client_id_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -199,15 +263,15 @@ CommandRequest::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 36, 2> CommandRequest::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 45, 2> CommandRequest::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
+    2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
+    4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
+    2,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     &_CommandRequest_default_instance_._instance,
@@ -217,6 +281,9 @@ const ::_pbi::TcParseTable<0, 1, 0, 36, 2> CommandRequest::_table_ = {
     ::_pbi::TcParser::GetTable<::zippy::CommandRequest>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
+    // string client_id = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_.client_id_)}},
     // string command = 1;
     {::_pbi::TcParser::FastUS1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_.command_)}},
@@ -226,12 +293,16 @@ const ::_pbi::TcParseTable<0, 1, 0, 36, 2> CommandRequest::_table_ = {
     // string command = 1;
     {PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_.command_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // string client_id = 2;
+    {PROTOBUF_FIELD_OFFSET(CommandRequest, _impl_.client_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\24\7\0\0\0\0\0\0"
+    "\24\7\11\0\0\0\0\0"
     "zippy.CommandRequest"
     "command"
+    "client_id"
   }},
 };
 
@@ -243,6 +314,7 @@ PROTOBUF_NOINLINE void CommandRequest::Clear() {
   (void) cached_has_bits;
 
   _impl_.command_.ClearToEmpty();
+  _impl_.client_id_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -259,6 +331,14 @@ PROTOBUF_NOINLINE void CommandRequest::Clear() {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.CommandRequest.command");
     target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // string client_id = 2;
+  if (!this->_internal_client_id().empty()) {
+    const std::string& _s = this->_internal_client_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.CommandRequest.client_id");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -278,10 +358,17 @@ PROTOBUF_NOINLINE void CommandRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
   // string command = 1;
   if (!this->_internal_command().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                     this->_internal_command());
+  }
+
+  // string client_id = 2;
+  if (!this->_internal_client_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_client_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -298,6 +385,9 @@ void CommandRequest::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::
 
   if (!from._internal_command().empty()) {
     _this->_internal_set_command(from._internal_command());
+  }
+  if (!from._internal_client_id().empty()) {
+    _this->_internal_set_client_id(from._internal_client_id());
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -316,6 +406,7 @@ void CommandRequest::InternalSwap(CommandRequest* PROTOBUF_RESTRICT other) {
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.command_, &other->_impl_.command_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.client_id_, &other->_impl_.client_id_, arena);
 }
 
 ::google::protobuf::Metadata CommandRequest::GetMetadata() const {
@@ -511,6 +602,279 @@ void CommandResponse::InternalSwap(CommandResponse* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata CommandResponse::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class UUIDRequest::_Internal {
+ public:
+};
+
+UUIDRequest::UUIDRequest(::google::protobuf::Arena* arena)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+  // @@protoc_insertion_point(arena_constructor:zippy.UUIDRequest)
+}
+UUIDRequest::UUIDRequest(
+    ::google::protobuf::Arena* arena,
+    const UUIDRequest& from)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+  UUIDRequest* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+
+  // @@protoc_insertion_point(copy_constructor:zippy.UUIDRequest)
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+UUIDRequest::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(UUIDRequest, _impl_._cached_size_),
+              false,
+          },
+          &UUIDRequest::MergeImpl,
+          &UUIDRequest::kDescriptorMethods,
+          &descriptor_table_zippy_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 0, 0, 0, 2> UUIDRequest::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    0, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967295,  // skipmap
+    offsetof(decltype(_table_), field_names),  // no field_entries
+    0,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_UUIDRequest_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::zippy::UUIDRequest>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }},
+  // no field_entries, or aux_entries
+  {{
+  }},
+};
+
+
+
+
+
+
+
+
+
+::google::protobuf::Metadata UUIDRequest::GetMetadata() const {
+  return ::google::protobuf::internal::ZeroFieldsBase::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class UUIDResponse::_Internal {
+ public:
+};
+
+UUIDResponse::UUIDResponse(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:zippy.UUIDResponse)
+}
+inline PROTOBUF_NDEBUG_INLINE UUIDResponse::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::zippy::UUIDResponse& from_msg)
+      : client_id_(arena, from.client_id_),
+        _cached_size_{0} {}
+
+UUIDResponse::UUIDResponse(
+    ::google::protobuf::Arena* arena,
+    const UUIDResponse& from)
+    : ::google::protobuf::Message(arena) {
+  UUIDResponse* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:zippy.UUIDResponse)
+}
+inline PROTOBUF_NDEBUG_INLINE UUIDResponse::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : client_id_(arena),
+        _cached_size_{0} {}
+
+inline void UUIDResponse::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+UUIDResponse::~UUIDResponse() {
+  // @@protoc_insertion_point(destructor:zippy.UUIDResponse)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void UUIDResponse::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.client_id_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+UUIDResponse::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(UUIDResponse, _impl_._cached_size_),
+              false,
+          },
+          &UUIDResponse::MergeImpl,
+          &UUIDResponse::kDescriptorMethods,
+          &descriptor_table_zippy_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 36, 2> UUIDResponse::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_UUIDResponse_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::zippy::UUIDResponse>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string client_id = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(UUIDResponse, _impl_.client_id_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string client_id = 1;
+    {PROTOBUF_FIELD_OFFSET(UUIDResponse, _impl_.client_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\22\11\0\0\0\0\0\0"
+    "zippy.UUIDResponse"
+    "client_id"
+  }},
+};
+
+PROTOBUF_NOINLINE void UUIDResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:zippy.UUIDResponse)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.client_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* UUIDResponse::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:zippy.UUIDResponse)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string client_id = 1;
+  if (!this->_internal_client_id().empty()) {
+    const std::string& _s = this->_internal_client_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "zippy.UUIDResponse.client_id");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:zippy.UUIDResponse)
+  return target;
+}
+
+::size_t UUIDResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:zippy.UUIDResponse)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string client_id = 1;
+  if (!this->_internal_client_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_client_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void UUIDResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<UUIDResponse*>(&to_msg);
+  auto& from = static_cast<const UUIDResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:zippy.UUIDResponse)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_client_id().empty()) {
+    _this->_internal_set_client_id(from._internal_client_id());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UUIDResponse::CopyFrom(const UUIDResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:zippy.UUIDResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void UUIDResponse::InternalSwap(UUIDResponse* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.client_id_, &other->_impl_.client_id_, arena);
+}
+
+::google::protobuf::Metadata UUIDResponse::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

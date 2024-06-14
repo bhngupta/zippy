@@ -43,11 +43,20 @@ class Zippy final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::CommandResponse>> PrepareAsyncExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::CommandResponse>>(PrepareAsyncExecuteCommandRaw(context, request, cq));
     }
+    virtual ::grpc::Status GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::zippy::UUIDResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::UUIDResponse>> AsyncGenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::UUIDResponse>>(AsyncGenerateUUIDRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::UUIDResponse>> PrepareAsyncGenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::zippy::UUIDResponse>>(PrepareAsyncGenerateUUIDRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
       virtual void ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -55,6 +64,8 @@ class Zippy final {
    private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::zippy::CommandResponse>* AsyncExecuteCommandRaw(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::zippy::CommandResponse>* PrepareAsyncExecuteCommandRaw(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::zippy::UUIDResponse>* AsyncGenerateUUIDRaw(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::zippy::UUIDResponse>* PrepareAsyncGenerateUUIDRaw(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -66,11 +77,20 @@ class Zippy final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::zippy::CommandResponse>> PrepareAsyncExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::zippy::CommandResponse>>(PrepareAsyncExecuteCommandRaw(context, request, cq));
     }
+    ::grpc::Status GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::zippy::UUIDResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>> AsyncGenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>>(AsyncGenerateUUIDRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>> PrepareAsyncGenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>>(PrepareAsyncGenerateUUIDRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
       void ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response, std::function<void(::grpc::Status)>) override;
       void ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response, std::function<void(::grpc::Status)>) override;
+      void GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -84,7 +104,10 @@ class Zippy final {
     class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::zippy::CommandResponse>* AsyncExecuteCommandRaw(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::zippy::CommandResponse>* PrepareAsyncExecuteCommandRaw(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>* AsyncGenerateUUIDRaw(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>* PrepareAsyncGenerateUUIDRaw(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ExecuteCommand_;
+    const ::grpc::internal::RpcMethod rpcmethod_GenerateUUID_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -93,6 +116,7 @@ class Zippy final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status ExecuteCommand(::grpc::ServerContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response);
+    virtual ::grpc::Status GenerateUUID(::grpc::ServerContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_ExecuteCommand : public BaseClass {
@@ -114,7 +138,27 @@ class Zippy final {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ExecuteCommand<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GenerateUUID : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GenerateUUID() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GenerateUUID() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateUUID(::grpc::ServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGenerateUUID(::grpc::ServerContext* context, ::zippy::UUIDRequest* request, ::grpc::ServerAsyncResponseWriter< ::zippy::UUIDResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ExecuteCommand<WithAsyncMethod_GenerateUUID<Service > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ExecuteCommand : public BaseClass {
    private:
@@ -142,7 +186,34 @@ class Zippy final {
     virtual ::grpc::ServerUnaryReactor* ExecuteCommand(
       ::grpc::CallbackServerContext* /*context*/, const ::zippy::CommandRequest* /*request*/, ::zippy::CommandResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ExecuteCommand<Service > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GenerateUUID : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GenerateUUID() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::zippy::UUIDRequest, ::zippy::UUIDResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response) { return this->GenerateUUID(context, request, response); }));}
+    void SetMessageAllocatorFor_GenerateUUID(
+        ::grpc::MessageAllocator< ::zippy::UUIDRequest, ::zippy::UUIDResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::zippy::UUIDRequest, ::zippy::UUIDResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GenerateUUID() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateUUID(::grpc::ServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GenerateUUID(
+      ::grpc::CallbackServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ExecuteCommand<WithCallbackMethod_GenerateUUID<Service > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ExecuteCommand : public BaseClass {
@@ -157,6 +228,23 @@ class Zippy final {
     }
     // disable synchronous version of this method
     ::grpc::Status ExecuteCommand(::grpc::ServerContext* /*context*/, const ::zippy::CommandRequest* /*request*/, ::zippy::CommandResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GenerateUUID : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GenerateUUID() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GenerateUUID() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateUUID(::grpc::ServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -182,6 +270,26 @@ class Zippy final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_GenerateUUID : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GenerateUUID() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_GenerateUUID() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateUUID(::grpc::ServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGenerateUUID(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_ExecuteCommand : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -201,6 +309,28 @@ class Zippy final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* ExecuteCommand(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GenerateUUID : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GenerateUUID() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateUUID(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GenerateUUID() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateUUID(::grpc::ServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GenerateUUID(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -230,9 +360,36 @@ class Zippy final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedExecuteCommand(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::zippy::CommandRequest,::zippy::CommandResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ExecuteCommand<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GenerateUUID : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GenerateUUID() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::zippy::UUIDRequest, ::zippy::UUIDResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::zippy::UUIDRequest, ::zippy::UUIDResponse>* streamer) {
+                       return this->StreamedGenerateUUID(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GenerateUUID() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GenerateUUID(::grpc::ServerContext* /*context*/, const ::zippy::UUIDRequest* /*request*/, ::zippy::UUIDResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGenerateUUID(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::zippy::UUIDRequest,::zippy::UUIDResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_ExecuteCommand<WithStreamedUnaryMethod_GenerateUUID<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ExecuteCommand<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_ExecuteCommand<WithStreamedUnaryMethod_GenerateUUID<Service > > StreamedService;
 };
 
 }  // namespace zippy

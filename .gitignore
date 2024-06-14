@@ -7,6 +7,7 @@ CmakeCache.txt
 *.a
 *.so
 *.exe
+*.log
 
 # Python Client Project Ignore
 
