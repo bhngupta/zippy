@@ -1,10 +1,21 @@
+# C++ Server Project Ignore
+
+/build
 /CmakeFiles
 CmakeCache.txt
-/build
 *.o
 *.a
 *.so
 *.exe
-.vscode
 *.log
+
+# Python Client Project Ignore
+
+client/env/
+*.pyc
+__pycache__/
+
+# Ignore Misc files
+
 .DS_Store
+.vscode/
