@@ -4,21 +4,20 @@
 #include <string>
 #include <unordered_map>
 
-class SnapshotManager
-{
-  public:
-    SnapshotManager(const std::string &snapshotFilePath);
+class SnapshotManager {
+public:
+  SnapshotManager(const std::string &snapshotFilePath);
 
-    void saveSnapshot(const std::unordered_map<std::string, std::string> &hashmap);
-    std::unordered_map<std::string, std::string> loadSnapshot();
-    std::unordered_map<std::string, std::string>
-    mergeSnapshots(const std::unordered_map<std::string, std::string> &currentSnapshot,
-                   const std::unordered_map<std::string, std::string> &newSnapshot);
-    std::string getValueFromSnapshot(const std::string &key);
-    void deleteKeyFromSnapshot(const std::string &key);
+  void saveSnapshot(const std::unordered_map<std::string, std::string> &hashmap);
+  std::unordered_map<std::string, std::string> loadSnapshot();
+  std::unordered_map<std::string, std::string>
+  mergeSnapshots(const std::unordered_map<std::string, std::string> &currentSnapshot,
+                 const std::unordered_map<std::string, std::string> &newSnapshot);
+  std::string getValueFromSnapshot(const std::string &key);
+  void deleteKeyFromSnapshot(const std::string &key);
 
-  private:
-    std::string snapshotFilePath_;
+private:
+  std::string snapshotFilePath_;
 };
 
-#endif // SNAPSHOTMANAGER_H
+#endif

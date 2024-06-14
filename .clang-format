@@ -1,10 +1,11 @@
 BasedOnStyle: LLVM
-IndentWidth: 4
+IndentWidth: 2
 TabWidth: 4
 UseTab: Never
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Attach
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
 ColumnLimit: 100
 SortIncludes: true
 IncludeBlocks: Regroup

@@ -114,6 +114,7 @@ You can now communicate with the C++ server and use the in-memory datastore!
 
 - [x] ~~Implement snapshotting (saving the in-memory data to disk at intervals)~~
 - [x] ~~Handle multiple clients concurrently using multi-threading or an event loop~~ 
+- [ ] Make the tests run faster - tests/tDatabase.cpp 
 - [ ] Simple Pub/Sub messaging 
 - [ ] Support for multiple data structures
 - [ ] Make a web client in flask to monitor the current status of the cache
