@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bzippy.proto\x12\x05zippy\"!\n\x0e\x43ommandRequest\x12\x0f\n\x07\x63ommand\x18\x01 \x01(\t\"!\n\x0f\x43ommandResponse\x12\x0e\n\x06result\x18\x01 \x01(\t2H\n\x05Zippy\x12?\n\x0e\x45xecuteCommand\x12\x15.zippy.CommandRequest\x1a\x16.zippy.CommandResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bzippy.proto\x12\x05zippy\"4\n\x0e\x43ommandRequest\x12\x0f\n\x07\x63ommand\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\t\"!\n\x0f\x43ommandResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"\r\n\x0bUUIDRequest\"!\n\x0cUUIDResponse\x12\x11\n\tclient_id\x18\x01 \x01(\t2\x83\x01\n\x05Zippy\x12?\n\x0e\x45xecuteCommand\x12\x15.zippy.CommandRequest\x1a\x16.zippy.CommandResponse\x12\x39\n\x0cGenerateUUID\x12\x12.zippy.UUIDRequest\x1a\x13.zippy.UUIDResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,9 +22,13 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'zippy_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_COMMANDREQUEST']._serialized_start=22
-  _globals['_COMMANDREQUEST']._serialized_end=55
-  _globals['_COMMANDRESPONSE']._serialized_start=57
-  _globals['_COMMANDRESPONSE']._serialized_end=90
-  _globals['_ZIPPY']._serialized_start=92
-  _globals['_ZIPPY']._serialized_end=164
+  _globals['_COMMANDREQUEST']._serialized_end=74
+  _globals['_COMMANDRESPONSE']._serialized_start=76
+  _globals['_COMMANDRESPONSE']._serialized_end=109
+  _globals['_UUIDREQUEST']._serialized_start=111
+  _globals['_UUIDREQUEST']._serialized_end=124
+  _globals['_UUIDRESPONSE']._serialized_start=126
+  _globals['_UUIDRESPONSE']._serialized_end=159
+  _globals['_ZIPPY']._serialized_start=162
+  _globals['_ZIPPY']._serialized_end=293
 # @@protoc_insertion_point(module_scope)

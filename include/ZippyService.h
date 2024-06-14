@@ -7,8 +7,10 @@
 #include <thread>
 #include <vector>
 #include <atomic>
-#include <uuid/uuid.h>
 #include <fstream>
+#include <unordered_map>
+#include <mutex>
+#include <condition_variable>
 
 class ZippyService final : public zippy::Zippy::AsyncService {
 public:
@@ -16,7 +18,6 @@ public:
     ~ZippyService();
     void Shutdown();
     grpc::Status ExecuteCommand(grpc::ServerContext* context, const zippy::CommandRequest* request, zippy::CommandResponse* response) override;
-    grpc::Status GenerateUUID(grpc::ServerContext* context, const zippy::UUIDRequest* request, zippy::UUIDResponse* response) override;
 
     void HandleRpcs();
 
@@ -26,8 +27,13 @@ public:
     std::unique_ptr<grpc::ServerCompletionQueue> cq_;
     std::unique_ptr<grpc::Server> server_;
 
+    void RemoveClientID(grpc::ServerContext* context);
+
 private:
     Database& db_;
+    std::unordered_map<grpc::ServerContext*, std::string> client_ids_;
+    std::mutex client_ids_mutex_;
+
     std::mutex shutdown_mutex_;
     std::condition_variable shutdown_cv_;
     std::atomic<bool> shutdown_;
