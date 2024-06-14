@@ -79,7 +79,27 @@ This will start the Zippy server
 
 ### Usage 
 
--- Add Usage Here
+From the root of the project
+
+1. Into Client directory
+
+   ```bash
+   cd client
+   ```
+
+2. Install Python dependency ([virtual environment](https://docs.python.org/3/library/venv.html))
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Start Pyhton Client
+
+   ```bash
+   python3 client.py
+   ```
+
+You can now communicate with the C++ server and use the in-memory datastore!
 
 ## Future Plans
 
