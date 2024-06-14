@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-Database::Database(size_t capacity, int ttl, std::chrono::milliseconds snapshotInterval)
-    : capacity(capacity), ttl(ttl), snapshotManager("./snapshot.bin"), running_(false) {
+Database::Database(size_t capacity, int ttl, std::chrono::milliseconds snapshotInterval, const std::string& snapshotFilePath)
+    : capacity(capacity), ttl(ttl), snapshotManager(snapshotFilePath), running_(false), snapshotInterval(snapshotInterval) {
   auto snapshot = snapshotManager.loadSnapshot();
   for (const auto &pair : snapshot) {
     cache[pair.first] = {pair.second, std::chrono::steady_clock::time_point::max()};
@@ -82,7 +82,9 @@ std::string Database::get(const std::string &key) {
 void Database::del(const std::string &key) {
   std::lock_guard<std::mutex> lock(mutex_);
 
-  if (hashTable.exists(key)) {
+  bool inMemory = hashTable.exists(key);
+
+  if (inMemory) {
     hashTable.del(key);
     cache.erase(key);
     if (lruMap.find(key) != lruMap.end()) {
@@ -90,15 +92,15 @@ void Database::del(const std::string &key) {
       lruMap.erase(key);
     }
     std::cout << "Deleted key: " << key << std::endl;
-  } else {
-    auto value = snapshotManager.getValueFromSnapshot(key);
-    if (!value.empty()) {
-      snapshotManager.deleteKeyFromSnapshot(key);
-      hashTable.del(key);
-      std::cout << "Deleted key: " << key << " from snapshot" << std::endl;
-    } else {
-      std::cout << "Key: " << key << " does not exist" << std::endl;
-    }
+  }
+
+  // Attempt to delete from snapshot
+  auto value = snapshotManager.getValueFromSnapshot(key);
+  if(!value.empty()){
+    snapshotManager.deleteKeyFromSnapshot(key);
+  }
+  else if (!inMemory){
+    std::cout << "Key: "<< "does not exist"<<std::endl;  
   }
 }
 

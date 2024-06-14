@@ -6,7 +6,7 @@
 
 void Server::Run() {
   std::string server_address("0.0.0.0:50051");
-  Database db(10, 600, std::chrono::minutes(2));
+  Database db(10000, 600, std::chrono::minutes(2), "../snapshot.bin");
 
   // TODO- Check if this runs on different thread
   db.startBackgroundThread();

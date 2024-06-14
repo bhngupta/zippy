@@ -10,6 +10,4 @@ cmake ..
 
 make
 
-cd build
-
 ./zippy -f ../logger.log

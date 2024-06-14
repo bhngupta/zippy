@@ -3,6 +3,7 @@
 /build
 /CmakeFiles
 CmakeCache.txt
+snapshot.bin
 *.o
 *.a
 *.so
@@ -12,6 +13,7 @@ CmakeCache.txt
 # Python Client Project Ignore
 
 client/env/
+client/zippy_env
 *.pyc
 __pycache__/
 
@@ -19,7 +21,3 @@ __pycache__/
 
 .DS_Store
 .vscode/
-
-#Pranavs venv
-
-client/zippy_env
