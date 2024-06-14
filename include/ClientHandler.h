@@ -1,9 +1,9 @@
-// Classes and methods for ClientHandler Header
 #ifndef CLIENTHANDLER_H
 #define CLIENTHANDLER_H
 
 #include "zippy.grpc.pb.h"
 #include "Database.h"
+#include "ZippyService.h"
 #include <grpcpp/grpcpp.h>
 
 class ZippyService;
@@ -22,7 +22,6 @@ private:
     zippy::CommandRequest request_;
     zippy::CommandResponse response_;
     grpc::ServerAsyncResponseWriter<zippy::CommandResponse> responder_;
-    std::string client_id_; // Client ID
 
     enum CallStatus { CREATE, PROCESS, FINISH };
     CallStatus status_;

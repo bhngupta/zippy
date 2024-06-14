@@ -45,6 +45,11 @@ class ZippyStub(object):
                 request_serializer=zippy__pb2.CommandRequest.SerializeToString,
                 response_deserializer=zippy__pb2.CommandResponse.FromString,
                 _registered_method=True)
+        self.GenerateUUID = channel.unary_unary(
+                '/zippy.Zippy/GenerateUUID',
+                request_serializer=zippy__pb2.UUIDRequest.SerializeToString,
+                response_deserializer=zippy__pb2.UUIDResponse.FromString,
+                _registered_method=True)
 
 
 class ZippyServicer(object):
@@ -57,6 +62,12 @@ class ZippyServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GenerateUUID(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ZippyServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -64,6 +75,11 @@ def add_ZippyServicer_to_server(servicer, server):
                     servicer.ExecuteCommand,
                     request_deserializer=zippy__pb2.CommandRequest.FromString,
                     response_serializer=zippy__pb2.CommandResponse.SerializeToString,
+            ),
+            'GenerateUUID': grpc.unary_unary_rpc_method_handler(
+                    servicer.GenerateUUID,
+                    request_deserializer=zippy__pb2.UUIDRequest.FromString,
+                    response_serializer=zippy__pb2.UUIDResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -94,6 +110,33 @@ class Zippy(object):
             '/zippy.Zippy/ExecuteCommand',
             zippy__pb2.CommandRequest.SerializeToString,
             zippy__pb2.CommandResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GenerateUUID(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/zippy.Zippy/GenerateUUID',
+            zippy__pb2.UUIDRequest.SerializeToString,
+            zippy__pb2.UUIDResponse.FromString,
             options,
             channel_credentials,
             insecure,

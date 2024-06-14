@@ -3,7 +3,6 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-#include <uuid/uuid.h>
 
 ZippyService::ZippyService(Database& db) : db_(db), shutdown_(false) {
     server_ = nullptr;
@@ -33,8 +32,15 @@ void ZippyService::Shutdown() {
 }
 
 grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zippy::CommandRequest* request, zippy::CommandResponse* response) {
-    std::string command = request->command();
     std::string client_id = request->client_id();
+    {
+        std::lock_guard<std::mutex> lock(client_ids_mutex_);
+        if (client_ids_.find(context) == client_ids_.end()) {
+            client_ids_[context] = client_id;
+        }
+    }
+    
+    std::string command = request->command();
     std::istringstream iss(command);
     std::string arg;
     iss >> arg;
@@ -60,16 +66,6 @@ grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zi
     } else {
         response->set_result("Invalid command");
     }
-    return grpc::Status::OK;
-}
-
-grpc::Status ZippyService::GenerateUUID(grpc::ServerContext* context, const zippy::UUIDRequest* request, zippy::UUIDResponse* response) {
-    uuid_t uuid;
-    uuid_generate_random(uuid);
-    char uuid_str[6]; // UUID string length is 36 characters + null terminator
-    uuid_unparse(uuid, uuid_str);
-    response->set_client_id(uuid_str);
-    std::cout << "Generated UUID: " << uuid_str << std::endl;
     return grpc::Status::OK;
 }
 
@@ -110,4 +106,9 @@ void ZippyService::HandleRpcs() {
         }
     }
     std::cout << "Exited HandleRpcs loop" << std::endl;
+}
+
+void ZippyService::RemoveClientID(grpc::ServerContext* context) {
+    std::lock_guard<std::mutex> lock(client_ids_mutex_);
+    client_ids_.erase(context);
 }

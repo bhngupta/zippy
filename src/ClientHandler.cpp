@@ -2,15 +2,9 @@
 #include "ZippyService.h"
 #include <iostream>
 #include <sstream>
-#include <uuid/uuid.h>
 
 ClientHandler::ClientHandler(Database* db, zippy::Zippy::AsyncService* service, grpc::ServerCompletionQueue* cq)
     : db_(db), service_(service), cq_(cq), responder_(&context_), status_(CREATE) {
-    uuid_t uuid;
-    uuid_generate_random(uuid);
-    char uuid_str[6]; // UUID string length is 36 characters + null terminator
-    uuid_unparse(uuid, uuid_str);
-    client_id_ = std::string(uuid_str);
     Proceed();
 }
 
@@ -28,24 +22,26 @@ void ClientHandler::Proceed() {
 
         ZippyService* zippy_service = static_cast<ZippyService*>(service_);
 
+        std::string client_id = request_.client_id(); // Use the client ID from the request
+
         if (arg == "SET") {
             std::string key, value;
             iss >> key >> value;
             db_->set(key, value);
             response_.set_result("Set operation performed successfully");
-            zippy_service->log(client_id_, arg, key, value);
+            zippy_service->log(client_id, arg, key, value);
         } else if (arg == "GET") {
             std::string key;
             iss >> key;
             std::string retrievedValue = db_->get(key);
             response_.set_result("Retrieved value: " + retrievedValue);
-            zippy_service->log(client_id_, arg, key, retrievedValue);
+            zippy_service->log(client_id, arg, key, retrievedValue);
         } else if (arg == "DEL") {
             std::string key;
             iss >> key;
             db_->del(key);
             response_.set_result("Delete operation performed successfully");
-            zippy_service->log(client_id_, arg, key);
+            zippy_service->log(client_id, arg, key);
         } else {
             response_.set_result("Invalid command");
         }
@@ -53,6 +49,8 @@ void ClientHandler::Proceed() {
         status_ = FINISH;
         responder_.Finish(response_, grpc::Status::OK, this);
     } else {
+        ZippyService* zippy_service = static_cast<ZippyService*>(service_);
+        zippy_service->RemoveClientID(&context_);  // Call RemoveClientID when done
         GPR_ASSERT(status_ == FINISH);
         delete this;
     }
