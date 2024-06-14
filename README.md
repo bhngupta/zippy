@@ -36,7 +36,7 @@ Our system has 2 main parts:
 
 ## Architecture
 
--- Add Arch Here
+![Zippy Architecture Diagram](https://github.com/bhngupta/zippy/blob/main/misc/zippy-arch.png?raw=true)
 
 ## Getting Started
 
