@@ -6,3 +6,5 @@ CmakeCache.txt
 *.so
 *.exe
 .vscode
+*.log
+.DS_Store

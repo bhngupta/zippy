@@ -5,6 +5,7 @@ package zippy;
 // The request message containing the command.
 message CommandRequest {
     string command = 1;
+    string client_id = 2;
 }
 
 // The response message containing the result.
@@ -15,4 +16,11 @@ message CommandResponse {
 // The Zippy service definition.
 service Zippy {
     rpc ExecuteCommand(CommandRequest) returns (CommandResponse);
+    rpc GenerateUUID (UUIDRequest) returns (UUIDResponse) {} // Add this line
+}
+
+message UUIDRequest {} // Empty request
+
+message UUIDResponse {
+  string client_id = 1;
 }

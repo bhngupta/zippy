@@ -23,6 +23,7 @@ namespace zippy {
 
 static const char* Zippy_method_names[] = {
   "/zippy.Zippy/ExecuteCommand",
+  "/zippy.Zippy/GenerateUUID",
 };
 
 std::unique_ptr< Zippy::Stub> Zippy::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -33,6 +34,7 @@ std::unique_ptr< Zippy::Stub> Zippy::NewStub(const std::shared_ptr< ::grpc::Chan
 
 Zippy::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_ExecuteCommand_(Zippy_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GenerateUUID_(Zippy_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Zippy::Stub::ExecuteCommand(::grpc::ClientContext* context, const ::zippy::CommandRequest& request, ::zippy::CommandResponse* response) {
@@ -58,6 +60,29 @@ void Zippy::Stub::async::ExecuteCommand(::grpc::ClientContext* context, const ::
   return result;
 }
 
+::grpc::Status Zippy::Stub::GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::zippy::UUIDResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::zippy::UUIDRequest, ::zippy::UUIDResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GenerateUUID_, context, request, response);
+}
+
+void Zippy::Stub::async::GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::zippy::UUIDRequest, ::zippy::UUIDResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GenerateUUID_, context, request, response, std::move(f));
+}
+
+void Zippy::Stub::async::GenerateUUID(::grpc::ClientContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GenerateUUID_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>* Zippy::Stub::PrepareAsyncGenerateUUIDRaw(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::zippy::UUIDResponse, ::zippy::UUIDRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GenerateUUID_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::zippy::UUIDResponse>* Zippy::Stub::AsyncGenerateUUIDRaw(::grpc::ClientContext* context, const ::zippy::UUIDRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGenerateUUIDRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 Zippy::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Zippy_method_names[0],
@@ -69,12 +94,29 @@ Zippy::Service::Service() {
              ::zippy::CommandResponse* resp) {
                return service->ExecuteCommand(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Zippy_method_names[1],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Zippy::Service, ::zippy::UUIDRequest, ::zippy::UUIDResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Zippy::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::zippy::UUIDRequest* req,
+             ::zippy::UUIDResponse* resp) {
+               return service->GenerateUUID(ctx, req, resp);
+             }, this)));
 }
 
 Zippy::Service::~Service() {
 }
 
 ::grpc::Status Zippy::Service::ExecuteCommand(::grpc::ServerContext* context, const ::zippy::CommandRequest* request, ::zippy::CommandResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Zippy::Service::GenerateUUID(::grpc::ServerContext* context, const ::zippy::UUIDRequest* request, ::zippy::UUIDResponse* response) {
   (void) context;
   (void) request;
   (void) response;

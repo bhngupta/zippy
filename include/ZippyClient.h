@@ -12,7 +12,6 @@ public:
     std::string ExecuteCommand(const std::string& command) {
         zippy::CommandRequest request;
         request.set_command(command);
-
         zippy::CommandResponse response;
         grpc::ClientContext context;
 

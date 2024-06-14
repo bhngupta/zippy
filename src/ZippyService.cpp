@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <uuid/uuid.h>
 
 ZippyService::ZippyService(Database& db) : db_(db), shutdown_(false) {
     server_ = nullptr;
@@ -33,6 +34,7 @@ void ZippyService::Shutdown() {
 
 grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zippy::CommandRequest* request, zippy::CommandResponse* response) {
     std::string command = request->command();
+    std::string client_id = request->client_id();
     std::istringstream iss(command);
     std::string arg;
     iss >> arg;
@@ -42,38 +44,48 @@ grpc::Status ZippyService::ExecuteCommand(grpc::ServerContext* context, const zi
         iss >> key >> value;
         db_.set(key, value);
         response->set_result("Set operation performed successfully");
-        log(arg, key, value);
+        log(client_id, arg, key, value);
     } else if (arg == "GET") {
         std::string key;
         iss >> key;
         std::string retrievedValue = db_.get(key);
         response->set_result("Retrieved value: " + retrievedValue);
-        log(arg, key, retrievedValue);
+        log(client_id, arg, key, retrievedValue);
     } else if (arg == "DEL") {
         std::string key;
         iss >> key;
         db_.del(key);
         response->set_result("Delete operation performed successfully");
-        log(arg, key);
+        log(client_id, arg, key);
     } else {
         response->set_result("Invalid command");
     }
     return grpc::Status::OK;
 }
 
-void ZippyService::log(const std::string& operation, const std::string& key, const std::string& value) {
+grpc::Status ZippyService::GenerateUUID(grpc::ServerContext* context, const zippy::UUIDRequest* request, zippy::UUIDResponse* response) {
+    uuid_t uuid;
+    uuid_generate_random(uuid);
+    char uuid_str[6]; // UUID string length is 36 characters + null terminator
+    uuid_unparse(uuid, uuid_str);
+    response->set_client_id(uuid_str);
+    std::cout << "Generated UUID: " << uuid_str << std::endl;
+    return grpc::Status::OK;
+}
+
+void ZippyService::log(const std::string& client_id, const std::string& operation, const std::string& key, const std::string& value) {
     if (operation == "SET") {
-        std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Key: " << key << ", Value: " << value << std::endl;
+        std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key << ", Value: " << value << std::endl;
     } else if (operation == "GET") {
         if (value.empty()) {
-            std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Key: " << key << ", Result: Key not found" << std::endl;
+            std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key << ", Result: Key not found" << std::endl;
         } else {
-            std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Key: " << key << ", Value: " << value << std::endl;
+            std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key << ", Value: " << value << std::endl;
         }
     } else if (operation == "DEL") {
-        std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Key: " << key << std::endl;
+        std::cout << "Client: " << client_id << ", Operation: " << operation << ", Key: " << key << std::endl;
     } else {
-        std::cout << "Client: " << "client-1" << ", Operation: " << operation << ", Command: " << key << std::endl;
+        std::cout << "Client: " << client_id << ", Operation: " << operation << ", Command: " << key << std::endl;
     }
 }
 
