@@ -14,9 +14,7 @@
 
 class Database {
 public:
-  Database(size_t capacity, int ttl = 600,
-           std::chrono::milliseconds snapshotInterval = std::chrono::minutes(5),
-           const std::string& snapshotFilePath = "../snapshot.bin");
+  Database(size_t capacity, int ttl, std::chrono::milliseconds snapshotInterval, const std::string& snapshotFilePath);
   ~Database();
 
   void set(const std::string &key, const std::string &value);

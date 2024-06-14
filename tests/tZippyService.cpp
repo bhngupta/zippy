@@ -9,7 +9,8 @@
 class ZippyServiceTest : public ::testing::Test {
 protected:
   void SetUp() override {
-    db = new Database(10);
+
+    db = new Database(10, 5, std::chrono::milliseconds(100), "../test_snapshot.bin");
     service = new ZippyService(*db);
 
     grpc::ServerBuilder builder;
@@ -31,6 +32,14 @@ protected:
     }
     delete service;
     delete db;
+
+    // Deleting the test snapshot
+    if (std::remove("../test_snapshot.bin") != 0) {
+        
+        // Handle the error if needed
+        std::cerr << "Error deleting the snapshot file" << std::endl;
+        
+        }
   }
 
   void SetCommand(ZippyClient &client, const std::string &key, const std::string &value) {

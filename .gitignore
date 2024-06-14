@@ -4,6 +4,7 @@
 /CmakeFiles
 CmakeCache.txt
 snapshot.bin
+test_snapshot.bin
 *.o
 *.a
 *.so

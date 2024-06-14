@@ -1,17 +1,20 @@
 #include "Database.h"
 
 #include <chrono>
+#include <cstdio>
 #include <fstream>
 #include <gtest/gtest.h>
 #include <thread>
 #include <unordered_map>
-// Test fixture for Database class
+
+// Tests for Database class
 class DatabaseTest : public ::testing::Test
 {
   protected:
     void SetUp() override
-    {
-        db = std::make_unique<Database>(3, 2, std::chrono::milliseconds(100), "../snapshot.bin");
+    {   
+        // capacity, ttl, snapshot time interval, snapshot path
+        db = std::make_unique<Database>(3, 2, std::chrono::milliseconds(100), "../test_snapshot.bin");
         db->startBackgroundThread();
         // Code to run before each test
     }
@@ -20,6 +23,11 @@ class DatabaseTest : public ::testing::Test
     {
         db->stopBackgroundThread();
         db.reset();
+
+        // Deleting the test snapshot
+        if (std::remove("../test_snapshot.bin") != 0) {
+            std::cerr << "Error deleting the snapshot file" << std::endl;
+        }
         // Code to run after each test
     }
 
@@ -96,7 +104,7 @@ TEST_F(DatabaseTest, SnapshotTest) {
     std::this_thread::sleep_for(
         std::chrono::milliseconds(100)); // Short wait to ensure snapshot is saved
 
-    std::ifstream ifs("../snapshot.bin", std::ios::binary);
+    std::ifstream ifs("../test_snapshot.bin", std::ios::binary);
     ASSERT_TRUE(ifs.is_open());
 
     size_t size;
@@ -143,7 +151,7 @@ TEST_F(DatabaseTest, SnapshotMergeTest) {
     std::this_thread::sleep_for(
         std::chrono::milliseconds(100)); // Short wait to ensure snapshot is saved
 
-    std::ifstream ifs("../snapshot.bin", std::ios::binary);
+    std::ifstream ifs("../test_snapshot.bin", std::ios::binary);
     ASSERT_TRUE(ifs.is_open());
 
     size_t size;
