@@ -12,4 +12,4 @@ make
 
 cd build
 
-./zippy
+./zippy -f ../logger.log

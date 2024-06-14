@@ -1,33 +1,36 @@
 #include "Database.h"
+
 #include <iostream>
 
-Database::Database(size_t capacity, int ttl, std::chrono::milliseconds snapshotInterval) : capacity(capacity), ttl(ttl), snapshotManager("./snapshot.bin"), running_(false) {
+Database::Database(size_t capacity, int ttl, std::chrono::milliseconds snapshotInterval)
+    : capacity(capacity), ttl(ttl), snapshotManager("./snapshot.bin"), running_(false)
+{
     auto snapshot = snapshotManager.loadSnapshot();
-    for (const auto& pair : snapshot) {
+    for (const auto &pair : snapshot)
+    {
         cache[pair.first] = {pair.second, std::chrono::steady_clock::time_point::max()};
     }
 }
 
-Database::~Database() {
-    stopBackgroundThread();
-}
+Database::~Database() { stopBackgroundThread(); }
 
-void Database::set(const std::string& key, const std::string& value) {
+void Database::set(const std::string &key, const std::string &value)
+{
     std::lock_guard<std::mutex> lock(mutex_);
-    
+
     // New expiration set => Time Now + TTL
     auto now = std::chrono::steady_clock::now();
     auto expiration = now + std::chrono::seconds(ttl);
 
-    // Insert or Update happens 
+    // Insert or Update happens
     hashTable.set(key, value);
     cache[key] = {value, expiration};
 
     std::cout << "SET > key: " << key << std::endl;
-    
 
     // Update LRU cache
-    if (lruMap.find(key) != lruMap.end()) {
+    if (lruMap.find(key) != lruMap.end())
+    {
         lruList.erase(lruMap[key]);
     }
     lruList.push_front(key);
@@ -36,13 +39,16 @@ void Database::set(const std::string& key, const std::string& value) {
     maintainCapacity();
 }
 
-std::string Database::get(const std::string& key) {
+std::string Database::get(const std::string &key)
+{
     std::lock_guard<std::mutex> lock(mutex_);
 
     auto it = cache.find(key);
-    if (it != cache.end()) {
+    if (it != cache.end())
+    {
         auto now = std::chrono::steady_clock::now();
-        if (it->second.expiration > now) {
+        if (it->second.expiration > now)
+        {
             it->second.expiration = now + std::chrono::seconds(ttl);
 
             lruList.erase(lruMap[key]);
@@ -51,7 +57,9 @@ std::string Database::get(const std::string& key) {
 
             std::cout << "GET key: " << key << " value: " << it->second.value << std::endl;
             return it->second.value;
-        } else {
+        }
+        else
+        {
             cache.erase(key);
             lruList.erase(lruMap[key]);
             lruMap.erase(key);
@@ -59,7 +67,8 @@ std::string Database::get(const std::string& key) {
     }
 
     auto value = snapshotManager.getValueFromSnapshot(key);
-    if (!value.empty()) {
+    if (!value.empty())
+    {
         auto expiration = std::chrono::steady_clock::now() + std::chrono::seconds(ttl);
         cache[key] = {value, expiration};
         hashTable.set(key, value);
@@ -75,47 +84,59 @@ std::string Database::get(const std::string& key) {
     return "";
 }
 
-void Database::del(const std::string& key) {
+void Database::del(const std::string &key)
+{
     std::lock_guard<std::mutex> lock(mutex_);
 
-    if (hashTable.exists(key)) {
+    if (hashTable.exists(key))
+    {
         hashTable.del(key);
         cache.erase(key);
-        if (lruMap.find(key) != lruMap.end()) {
+        if (lruMap.find(key) != lruMap.end())
+        {
             lruList.erase(lruMap[key]);
             lruMap.erase(key);
         }
         std::cout << "Deleted key: " << key << std::endl;
-    } else {
+    }
+    else
+    {
         auto value = snapshotManager.getValueFromSnapshot(key);
-        if (!value.empty()) {
+        if (!value.empty())
+        {
             snapshotManager.deleteKeyFromSnapshot(key);
             hashTable.del(key);
             std::cout << "Deleted key: " << key << " from snapshot" << std::endl;
-        } else {
+        }
+        else
+        {
             std::cout << "Key: " << key << " does not exist" << std::endl;
         }
     }
 }
 
-void Database::startBackgroundThread() {
+void Database::startBackgroundThread()
+{
     running_ = true;
     backgroundThread_ = std::thread(&Database::backgroundTask, this);
 }
 
-void Database::stopBackgroundThread() {
+void Database::stopBackgroundThread()
+{
     running_ = false;
-    if (backgroundThread_.joinable()) {
+    if (backgroundThread_.joinable())
+    {
         backgroundThread_.join();
     }
 }
 
 // || Helper Functions ||
 
-
-void Database::backgroundTask() {
+void Database::backgroundTask()
+{
     auto lastSnapshotTime = std::chrono::steady_clock::now();
-    while (running_) {
+    while (running_)
+    {
         std::this_thread::sleep_for(std::chrono::seconds(2));
         {
             std::lock_guard<std::mutex> lock(mutex_);
@@ -123,58 +144,72 @@ void Database::backgroundTask() {
         }
 
         auto now = std::chrono::steady_clock::now();
-        if (now - lastSnapshotTime >= std::chrono::minutes(2)) {
-            std::cout << "Taking snapshot at " << std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count() << " seconds since epoch" << std::endl;
+        if (now - lastSnapshotTime >= std::chrono::minutes(2))
+        {
+            std::cout
+                << "Taking snapshot at "
+                << std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count()
+                << " seconds since epoch" << std::endl;
             takeSnapshot();
             lastSnapshotTime = now;
         }
     }
 }
 
-void Database::takeSnapshot() {
+void Database::takeSnapshot()
+{
     std::lock_guard<std::mutex> lock(mutex_);
 
     // Convert cache to a format suitable for SnapshotManager
     std::unordered_map<std::string, std::string> currentSnapshot;
-    for (const auto& pair : cache) {
+    for (const auto &pair : cache)
+    {
         currentSnapshot[pair.first] = pair.second.value;
     }
 
     auto snapshot = snapshotManager.loadSnapshot();
     auto mergedSnapshot = snapshotManager.mergeSnapshots(snapshot, currentSnapshot);
     snapshotManager.saveSnapshot(mergedSnapshot);
-    
+
     auto now = std::chrono::steady_clock::now();
-    std::cout << "Snapshot taken at " << std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count() << " seconds since epoch" << std::endl;
+    std::cout << "Snapshot taken at "
+              << std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count()
+              << " seconds since epoch" << std::endl;
 }
 
-void Database::forceSnapshot() {
-    takeSnapshot();
-}
+void Database::forceSnapshot() { takeSnapshot(); }
 
-void Database::purgeExpired() {
+void Database::purgeExpired()
+{
     auto now = std::chrono::steady_clock::now();
-    for (auto it = lruList.rbegin(); it != lruList.rend(); ++it) {
+    for (auto it = lruList.rbegin(); it != lruList.rend(); ++it)
+    {
         auto key = *it;
         auto entry = cache[key];
-        if (entry.expiration <= now) {
+        if (entry.expiration <= now)
+        {
             cache.erase(key);
             lruMap.erase(key);
             lruList.erase(std::next(it).base());
             std::cout << "Removed expired key from cache: " << key << std::endl;
-            
-            if (hashTable.exists(key)) {
+
+            if (hashTable.exists(key))
+            {
                 hashTable.del(key);
                 std::cout << "Deleted key: " << key << std::endl;
             }
-        } else {
+        }
+        else
+        {
             break; // LRU list is in descending order of access time, so no need to check further
         }
     }
 }
 
-void Database::maintainCapacity() {
-    while (hashTable.size() > capacity) {
+void Database::maintainCapacity()
+{
+    while (hashTable.size() > capacity)
+    {
         std::string key = lruList.back();
         lruList.pop_back();
         hashTable.del(key);

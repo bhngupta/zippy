@@ -2,15 +2,16 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <grpcpp/grpcpp.h>
 #include "ZippyService.h"
 
-class Server {
-public:
-    
+#include <grpcpp/grpcpp.h>
+
+class Server
+{
+  public:
     void Run();
 
-private:
+  private:
     std::unique_ptr<grpc::Server> server;
 };
 
