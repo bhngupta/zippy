@@ -39,6 +39,7 @@ private:
   std::mutex shutdown_mutex_;
   std::condition_variable shutdown_cv_;
   std::atomic<bool> shutdown_;
+  std::string getCurrentTime();
 };
 
 #endif
