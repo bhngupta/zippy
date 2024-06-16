@@ -141,10 +141,6 @@ You can now communicate with the C++ server and use the in-memory datastore!
 
 This project is licensed under the [MIT License](https://opensource.org/license/MIT) - see the [LICENSE](https://github.com/bhngupta/zippy/blob/main/LICENSE) file for details.
 
-# Contributors-Readme
-
-This is an example of contributors-readme-action as it can't be utilized in master, because of the demonstration it will be overwritten.
-
 ## Contributors
 
 <table>
